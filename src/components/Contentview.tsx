@@ -10,7 +10,7 @@ export default function Contentview(props: any) {
   const renderItem = ({item, index}:any) => {
     // console.log("&&&&&&&&&",item);
     return(
-        <Poster item={item} style={props.style} title={props.name}/>
+        <Poster item={item} style={props.style} title={props.name} screen={props.screen}/>
         )   
   };
   return (

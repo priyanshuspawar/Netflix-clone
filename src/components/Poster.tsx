@@ -5,10 +5,8 @@ import { vh, vw } from '../utils/dimension'
 
 export default function Poster(props:any) {
     // console.log("###",props.item.poster_path);
-  
-    
   return (
-    <Pressable onPress={()=>{}}>
+    <Pressable onPress={props.screen}>
     <View style={[styles.container,props.style]}>
     <Text style={styles.title}>{props.item[props.title]}</Text>
     <Image source={{uri:`${url}${props.item.poster_path}`}} style={[styles.poster,props.style]}/>

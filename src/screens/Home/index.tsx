@@ -26,7 +26,7 @@ import Genre from '../../components/Genre';
 import { vh } from '../../utils/dimension';
 import { vw } from '../../components/dimension';
 
-export default function Home() {
+export default function Home(props:any) {
   const [animate, setAnimate] = React.useState(true);
   const [action_movies, setActionMovie] = React.useState<Array<{title: string,poster_path:String,backdrop_path:String,first_air_date:String}>>([]);
   const [trending, setTrending] = React.useState<Array<{title: string,poster_path:String,backdrop_path:String,first_air_date:String}>>([]);
@@ -67,9 +67,9 @@ export default function Home() {
       <StatusBar  translucent={true} backgroundColor={"transparent"}/>
       {/* <View style={styles.container}>`` */}
         {animate && <ActivityIndicator animating={true} size={'large'} color={'red'} style={styles.loader}/>}
-        <Show img={trending[17]?.poster_path} title={trending[17]?.title}/>
+        <Show img={trending[17]?.poster_path} title={trending[4]?.title}/>
         <Genre genre1={"TV Shows"} genre2={"Movies"}/>
-        <Contentview data={trending} title={'Trending'} name={"name"}/>
+        <Contentview data={trending} title={'Trending'} name={"title"} screen={()=>{props.navigation.navigate("Content",{hello:1})}}/>
         <Contentview data={topRated} title={'Top Rated'} name={"title"}/>
         <Contentview data={netflixOriginals} title={'Netflix Originals'} style={{height:vh(325),width:vw(160)}} name={"name"}/>
         <Contentview data={action_movies} title={'Action Movies'} name={"title"}/>

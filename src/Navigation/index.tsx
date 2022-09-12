@@ -12,9 +12,9 @@ export default function Navgation(props:any) {
   return (
     <NavigationContainer>
     <Stack.Navigator initialRouteName='Details' screenOptions={{headerShown:false}}>
+      <Stack.Screen name="Content" component={Content} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Details" component={Details} />
-      <Stack.Screen name="Content" component={Content} />
     </Stack.Navigator>
   </NavigationContainer>
   )
