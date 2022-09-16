@@ -19,6 +19,7 @@ export const PassAction =(val:string)=>{
 //   }
 
 export const MovieAction=(successData=(response:[])=>{})=>{
+  
   return(dispatch:any)=>{
     getApiCall(endpoints.fetchActionMovies,(res)=>{
       // console.log("@@@@",res)
@@ -59,4 +60,9 @@ export const TopRated=(successData=(response:[])=>{})=>{
       
   }
 }
+
+
+
+  
+
 

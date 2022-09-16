@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         justifyContent:"space-evenly",
         position:"absolute",
         width:vw(375),
-        marginTop:50,
+        top:60,
     },
     text:{
         fontSize:16,

@@ -1,0 +1,32 @@
+import { Image, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { fullWidth, vh,vw} from '../utils/dimension'
+
+export default function NavBar() {
+  return (
+    <View style={styles.container}>
+      <Image source={require("../assets/netflix_logo_bar.png")} style={styles.logo} resizeMode={"contain"}/>
+      <Image source={require("../assets/searching.png")} style={styles.search} resizeMode={"contain"}/>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+    container:{
+        flexDirection:"row",
+        justifyContent:"space-between",
+        backgroundColor:"transparent",
+        position:"absolute",
+        width:fullWidth,
+        paddingHorizontal:10,
+        top:30
+    },
+    logo:{
+        height:vh(30),
+        width:vw(25)
+    },
+    search:{
+        height:vh(20),
+        width:vw(20),
+    }
+})

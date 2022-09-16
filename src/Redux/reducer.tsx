@@ -2,6 +2,10 @@ type typestate={
     email:string;
     password:string;
     action_movies:Object;
+    onChange:any,
+    TopRated:Object,
+    Netflix_Originals:Object,
+    Trending:Object
 
 }
 
@@ -9,6 +13,10 @@ const initialState:typestate={
     email:"",
     password:"",
     action_movies:{},
+    onChange:"",
+    TopRated:{},
+    Netflix_Originals:{},
+    Trending:{}
 }
 const reducer=(state=initialState,action: { type: string; payload: string; })=>{
     switch(action.type){
