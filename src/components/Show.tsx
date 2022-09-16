@@ -1,19 +1,16 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import url from '../utils/constants';
+import {posterUrl} from '../utils/constants';
 import {vw, vh, fullWidth} from '../utils/dimension';
-import LinearGradient from 'react-native-linear-gradient';
 export default function Show(props: any) {
   return (
-    <View>
-      {/* <Text style={{color:"white",alignSelf:"center"}}>{props.title}</Text> */}
+    <View style={{borderColor:"blue",borderWidth:1}}>
+      <Text style={{color:"white",alignSelf:"center"}}>{props.title}</Text>
       <Image
-        source={{uri: `${url}${props.img}`}}
+        source={{uri: `${posterUrl}${props.img}`}}
         style={styles.poster}
         resizeMode={'stretch'}
       />
-      <LinearGradient  colors={['#00000080', '#00000060', '#00000000']}  start={{ y: 1, x: 1 }} end={{ y: 1, x: 1 }}  style={{position:"absolute",zIndex:1,height:500,width:fullWidth,bottom:0}}>
-      </LinearGradient>
       <View style={styles.buttons}>
         <View style={styles.add}>
           <Image
