@@ -5,10 +5,6 @@ import { vh, vw } from '../utils/dimension'
 
 export default function Poster(props:any) {
     // console.log("###",props.item.poster_path);
-    const a=14;
-    const move=(e:any)=>{
-      props.screen
-    }
   return (
     <Pressable onPress={props.screen}>
     <View style={[styles.container,props.style]}>

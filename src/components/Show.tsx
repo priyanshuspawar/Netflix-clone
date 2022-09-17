@@ -21,7 +21,7 @@ export default function Show(props: any) {
             source={require('../assets/plus.png')}
             resizeMode={'contain'}
           />
-          <Text style={{color: 'white', fontWeight: '400', fontSize: 10}}>
+          <Text style={{color: 'white', fontWeight: '400', fontSize: 9}}>
             My List
           </Text>
         </View>
@@ -63,17 +63,21 @@ const styles = StyleSheet.create({
     elevation: 50,
     shadowColor: 'black',
     borderColor: 'black',
+    alignContent:"center"
   },
   add: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   addimg: {
-    height: vh(18),
-    width: vw(12),
-    marginBottom: 2,
+    height: vh(17),
+    width: vw(11),
+    marginBottom: 0,
   },
-  info: {},
+  info: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   infoimg: {
     height: vh(18),
     width: vw(18),

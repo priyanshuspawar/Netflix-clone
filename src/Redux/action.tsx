@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import endpoints from "../utils/endpoints";
-import { getApiCall } from "../utils/services";
+import { getApiCall, getSimilar } from "../utils/services";
 
 
 
@@ -61,6 +61,14 @@ export const TopRated=(successData=(response:[])=>{})=>{
   }
 }
 
+export const Similar=(id:string,media_type:string,successData=(response:[])=>{})=>{
+  return(dispatch:any)=>{
+    getSimilar(id,media_type,(res)=>{
+      dispatch({type:"Similar",payload:res.data.results})
+      successData(res.data.results);
+    });
+  }
+}
 
 
   

@@ -6,7 +6,7 @@ type typestate={
     TopRated:Object,
     Netflix_Originals:Object,
     Trending:Object
-
+    Similar:Object    
 }
 
 const initialState:typestate={
@@ -16,7 +16,8 @@ const initialState:typestate={
     onChange:"",
     TopRated:{},
     Netflix_Originals:{},
-    Trending:{}
+    Trending:{},
+    Similar:{}    
 }
 const reducer=(state=initialState,action: { type: string; payload: string; })=>{
     switch(action.type){
@@ -34,6 +35,8 @@ const reducer=(state=initialState,action: { type: string; payload: string; })=>{
             return{...state,Neflix_Originals:action.payload}
         case "Trending":
             return{...state,Trending:action.payload}
+        case "Similar":
+            return{...state,Similar:action.payload}
         default:
             return state;
     }

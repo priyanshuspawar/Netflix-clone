@@ -18,7 +18,11 @@ const endpoints = {
   
     fetchDocumantaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
 
-    fetchTrailer: `/videos?api_key=${API_KEY}`
+    fetchTrailer: `/videos?api_key=${API_KEY}`,
+
+    fetchGenre:`/list?api_key=${API_KEY}`,
+
+    fetchSimilar:`/similar?api_key=${API_KEY}`
   
   }
 
