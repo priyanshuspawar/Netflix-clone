@@ -6,14 +6,16 @@ import Login from '../screens/Page/Login';
 import Home from '../screens/Home';
 import Details from '../screens/Page/Details';
 import Content from '../screens/Content';
+import TabNavigation from '../TabNavigation';
+
 
 export default function Navgation(props:any) {
     const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
     <Stack.Navigator initialRouteName='Details' screenOptions={{headerShown:false}}>
       <Stack.Screen name="Content" component={Content} />
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Home" component={TabNavigation} />
       <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   </NavigationContainer>

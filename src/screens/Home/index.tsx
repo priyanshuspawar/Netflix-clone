@@ -26,6 +26,8 @@ import Genre from '../../components/Genre';
 import {vh} from '../../utils/dimension';
 import {vw} from '../../components/dimension';
 import NavBar from '../../components/NavBar';
+import LinearGradient from 'react-native-linear-gradient';
+import TabNavigation from '../../TabNavigation';
 
 type ActionMovie = {
   title: string;
@@ -83,17 +85,25 @@ export default function Home(props: any) {
 
 
   return (
-    <ScrollView style={{backgroundColor: 'black', flex: 1,borderWidth:1,borderColor:"white"}}>
-      <StatusBar translucent={true} backgroundColor={"transparent"} hidden={true}/>
-      <View>
+    <ScrollView style={{backgroundColor: 'black', flex: 1}}>
+      <StatusBar translucent={true} backgroundColor={'transparent'} />
+      <NavBar/>
+      {animate && (
+        <ActivityIndicator
+          animating={true}
+          size={'large'}
+          color={'red'}
+          style={styles.loader}
+        />
+      )}
+      
       <Show img={trending[1]?.poster_path} title={trending[1]?.title} />
-        {/* <NavBar/> */}
-      </View>
       <Genre genre1={'TV Shows'} genre2={'Movies'} />
       <Contentview
         data={trending}
         title={'Trending'}
         screen={(e:any)=>{props.navigation.navigate("Content",e)}}
+        styleContainer={{marginTop:20}}
       />
       <Contentview data={topRated} title={'Top Rated'} screen={(e:any)=>{props.navigation.navigate("Content",e)}}/>
       <Contentview
@@ -111,6 +121,7 @@ export default function Home(props: any) {
         title={'Action Movies'}
         screen={(e:any)=>{props.navigation.navigate("Content",e)}}
       />
+      {/* </View> */}
     </ScrollView>
   );
 }

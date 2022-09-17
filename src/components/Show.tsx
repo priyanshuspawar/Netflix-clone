@@ -2,15 +2,18 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {posterUrl} from '../utils/constants';
 import {vw, vh, fullWidth} from '../utils/dimension';
+import LinearGradient from 'react-native-linear-gradient';
 export default function Show(props: any) {
   return (
-    <View style={{borderColor:"blue",borderWidth:1}}>
-      <Text style={{color:"white",alignSelf:"center"}}>{props.title}</Text>
+    <View>
       <Image
         source={{uri: `${posterUrl}${props.img}`}}
         style={styles.poster}
         resizeMode={'stretch'}
       />
+      <LinearGradient colors={["#000000","#00000000","#000000"]} style={styles.grad}>
+      </LinearGradient>
+      {/* <Text style={{color:"white",alignSelf:"center"}}>{props.title}</Text> */}
       <View style={styles.buttons}>
         <View style={styles.add}>
           <Image
@@ -34,9 +37,9 @@ export default function Show(props: any) {
           <Image
             source={require('../assets/info.png')}
             style={styles.infoimg}
-            resizeMode={'contain'}
+            resizeMode={'center'}
           />
-          <Text style={{color: 'white', fontWeight: '400', fontSize: 10}}>
+          <Text style={{color: 'white', fontWeight: '400', fontSize: 11}}>
             info
           </Text>
         </View>
@@ -47,14 +50,14 @@ export default function Show(props: any) {
 
 const styles = StyleSheet.create({
   poster: {
-    width: vw(375),
-    height: vh(500),
+    width: fullWidth,
+    height: vh(525),
   },
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     position: 'absolute',
-    bottom: vh(20),
+    bottom: vh(5),
     width: fullWidth,
     backgroundColor: 'transparent',
     elevation: 50,
@@ -89,4 +92,9 @@ const styles = StyleSheet.create({
     width: vw(16),
     marginRight: 8,
   },
+  grad:{
+  position:"absolute",
+  height:vh(550),
+  width:fullWidth
+}
 });

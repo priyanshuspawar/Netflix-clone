@@ -5,8 +5,9 @@ import { fullWidth, vh,vw} from '../utils/dimension'
 export default function NavBar() {
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/netflix_logo_bar.png")} style={styles.logo} resizeMode={"contain"}/>
+      <Image source={require("../assets/netflix_logo_bar.png")} style={styles.logo} resizeMode={"center"}/>
       <Image source={require("../assets/searching.png")} style={styles.search} resizeMode={"contain"}/>
+      <Image source={require("../assets/profile1.png")} style={styles.profilepic} resizeMode={"contain"}/>
     </View>
   )
 }
@@ -19,7 +20,8 @@ const styles = StyleSheet.create({
         position:"absolute",
         width:fullWidth,
         paddingHorizontal:10,
-        top:30
+        top:30,
+        zIndex:1
     },
     logo:{
         height:vh(30),
@@ -28,5 +30,11 @@ const styles = StyleSheet.create({
     search:{
         height:vh(20),
         width:vw(20),
+        marginLeft:250
+    },
+    profilepic:{
+      height:vh(20),
+      width:vw(20),
+      marginRight:5
     }
 })

@@ -15,7 +15,7 @@ export default function Contentview(props: any) {
         )   
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,props.styleContainer]}>
       <Text style={styles.text}>{props.title}</Text>
       <FlatList data={props.data} renderItem={renderItem} horizontal={true} />
     </View>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   text:{
     color:"white",
     fontSize:20,
-    fontWeight:"700",
-    marginBottom:8
+    marginBottom:8,
+    fontFamily:"Montserrat-SemiBold"
   }
 });
