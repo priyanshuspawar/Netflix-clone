@@ -6,12 +6,12 @@ import Home from '../screens/Home';
 import Discover from '../screens/Discover';
 import {vh, vw} from '../utils/dimension';
 import Downloads from '../screens/Downloads';
+import Content from '../screens/Content';
 
 
 export default function TabNavigation() {
   const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer independent={true}>
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
@@ -66,7 +66,6 @@ export default function TabNavigation() {
         return(<Image source={focused?require("../assets/down.png"):require("../assets/undown.png")} style={styles.icon}/>)}
     }}/>
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 

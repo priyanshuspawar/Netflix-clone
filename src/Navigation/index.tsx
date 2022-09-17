@@ -12,7 +12,7 @@ import TabNavigation from '../TabNavigation';
 export default function Navgation(props:any) {
     const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer independent={true}>
+    <NavigationContainer >
     <Stack.Navigator initialRouteName='Details' screenOptions={{headerShown:false}}>
       <Stack.Screen name="Content" component={Content} />
       <Stack.Screen name="Home" component={TabNavigation} />
