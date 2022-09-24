@@ -6,7 +6,8 @@ import Home from '../screens/Home';
 import Details from '../screens/Page/Details';
 import Content from '../screens/Content';
 import TabNavigation from '../TabNavigation';
-import Splash from '../screens/Splash';
+import Splash from '../screens/Splash'
+import Search from '../screens/Search/Search';
 
 export default function Navgation(props: any) {
   const Stack = createNativeStackNavigator();
@@ -17,6 +18,7 @@ export default function Navgation(props: any) {
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Home" component={TabNavigation} />
+        <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Content" component={Content} />
         <Stack.Screen name="Details" component={Details} />
       </Stack.Navigator>

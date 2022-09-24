@@ -22,8 +22,9 @@ const endpoints = {
 
     fetchGenre:`/list?api_key=${API_KEY}`,
 
-    fetchSimilar:`/similar?api_key=${API_KEY}`
-  
+    fetchSimilar:`/similar?api_key=${API_KEY}`,
+    
+    fetchSearch: `?api_key=${API_KEY}&page=1&query=`
   }
 
   export default endpoints;

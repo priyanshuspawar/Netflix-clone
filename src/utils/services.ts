@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 import {trailerUrl} from './constants';
 import endpoints from './endpoints';
 
@@ -17,6 +18,12 @@ const instanceGenre = axios.create({
   timeout: 200,
   headers: {'X-Custom-Header': 'foobar'},
 });
+
+const instanceSearch = axios.create({
+  baseURL: 'https://api.themoviedb.org/3/search/multi',
+  timeout: 200,
+  headers: {'X-Custom-Header':'foobar'}
+})
 
 
 
@@ -77,4 +84,17 @@ export const getSimilar=(
   .catch((e: string) => {
     errorCallback(e);
   });
+}
+
+export const getSearch=(
+  query:String,
+  callbackResponse=(res:any)=>{},
+  errorCallback=(res:any)=>{}
+)=>{
+  instanceSearch
+  .get(`${endpoints.fetchSearch}${query}`)
+  .then((res)=>{callbackResponse(res);})
+  .catch((e:String)=>{
+    errorCallback(e);
+  })
 }

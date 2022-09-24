@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  StatusBar,
 } from 'react-native';
 import React from 'react';
 import {vh, vw} from '../../utils/dimension';
@@ -48,11 +49,12 @@ export default function Details(props:any) {
 
   return (
     <View style={{flex:1,backgroundColor:"black",justifyContent:"center"}}>
+    <StatusBar translucent={true} backgroundColor={"transparent"}/>
     <View style={{alignItems: 'center'}}>
       <Image
         source={require('../../assets/Netflixlogo.png')}
         resizeMode={'contain'}
-        style={{height: 120, width: 300}}
+        style={{height: vh(120), width: vw(300)}}
       />
       <TextInput
         style={[styles.input, CheckValidEmail ? {borderColor: 'red'} : {}]}
@@ -93,7 +95,7 @@ export default function Details(props:any) {
             setEmpty(false)
           dispatch(EmailAction(mail))
           dispatch(PassAction(password))
-          props.navigation.navigate("Home")}
+          props.navigation.replace("Home")}
         }}
         style={styles.buttonContainer}>
         <Text style={styles.buttomtxt}>Sign In</Text>

@@ -71,7 +71,9 @@ export default function Home(props: any) {
   return (
     <ScrollView style={{backgroundColor: 'black', flex: 1}} showsVerticalScrollIndicator={false}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
-      <NavBar/>
+      <NavBar      
+      screen={()=>{props.navigation.navigate("Search")}}
+      />
       {animate && (
         <ActivityIndicator
           animating={true}

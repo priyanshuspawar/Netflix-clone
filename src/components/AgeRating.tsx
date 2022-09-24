@@ -5,7 +5,7 @@ import { vh, vw } from './dimension'
 const AgeRating = (props:any) => {
   return (
     <View style={styles.container}>
-      {props.rating?<Text style={styles.text}> A </Text>:<Text style={styles.text}> U / A </Text>}
+      {props.rating?(<Text style={styles.text}> A </Text>):(<Text style={styles.text}> U / A </Text>)}
     </View>
   )
 }

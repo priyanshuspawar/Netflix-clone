@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import {Keyboard ,FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { vh, vw } from './dimension';
 import { SimilarPosterUrl } from '../utils/constants';
@@ -11,9 +11,12 @@ const ViewSimilarGrid = (props:any) => {
         )          
     }
   return (
-    <View style={{justifyContent:"center",alignContent:"center",marginVertical:10}}>
-      <FlatList nestedScrollEnabled={true} data={props.data} numColumns={3} renderItem={renderitem}/>
+    
+    <View style={{justifyContent:"center",alignContent:"center",marginVertical:10,flexWrap:"wrap"}}>
+      <FlatList onScrollBeginDrag={()=>{Keyboard.dismiss()}} nestedScrollEnabled={true} data={props.data} numColumns={3} renderItem={renderitem} showsVerticalScrollIndicator={false}/>
     </View>
+    
+    
   )
 }
 
