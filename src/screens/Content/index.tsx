@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useRef } from 'react';
 import Video from 'react-native-video';
 import {fullWidth, vh, vw} from '../../utils/dimension';
 import YoutubePlayer from 'react-native-youtube-iframe';
@@ -18,9 +18,11 @@ import AgeRating from '../../components/AgeRating';
 import { useDispatch } from 'react-redux';
 import { Similar } from '../../Redux/action';
 import ViewSimilarGrid from '../../components/ViewSimilarGrid';
+import Slider from '@react-native-community/slider';
 
 export default function Content(props: any) {
   type trailerData = {key: string; type: string};
+  const playerRef=React.useRef();
   const dispatch = useDispatch<any>();
   const {title,adult,overview, id, media_type, name,release_date,first_air_date} = props.route.params;
   const [trailerData, setTrailer] = React.useState<Array<trailerData>>([]);
@@ -36,12 +38,15 @@ export default function Content(props: any) {
       media_type,
       res => {
         setTrailer(res.data.results);
+        
       },
       () => {},
     );
     dispatch(Similar(id,media_type,(res:any)=>{setSimilarData(res)}))
+    
 
-  }, []);
+  }, [props.route.params]);
+
 
 
 
@@ -52,12 +57,17 @@ export default function Content(props: any) {
         setAnimate(false);
       }
     });
+    
   },[trailerData])
 
 
   
+  // console.log("@@@",props.route.params);
+
+  console.log("$$$$$",key,title);
   
-  console.log("@@@",SimilarData);
+  
+  
   
 
   return (
@@ -83,6 +93,7 @@ export default function Content(props: any) {
             // webViewProps={{containerStyle:{height:vh(300)}}}
           />
         )}
+
       </View>
       <ScrollView nestedScrollEnabled={true}>
       <Text style={styles.title}>{media_type == 'tv' ? name : title}</Text>
@@ -94,7 +105,10 @@ export default function Content(props: any) {
       <DownloadButton/>
       <Text style={styles.dis}>{overview}</Text>
       <Text style={styles.similartext}>MORE LIKE THIS</Text>
-      <ViewSimilarGrid data={SimilarData}/>
+      <ViewSimilarGrid data={SimilarData} screen={(e:any)=>{
+          props.navigation.pop()
+          props.navigation.navigate("Content",e )
+        }}/>
     </ScrollView>
     </View>
   );

@@ -17,7 +17,7 @@ export default function Contentview(props: any) {
   return (
     <View style={[styles.container,props.styleContainer]}>
       <Text style={styles.text}>{props.title}</Text>
-      <FlatList data={props.data} renderItem={renderItem} horizontal={true} />
+      <FlatList data={props.data} renderItem={renderItem} horizontal={true} showsVerticalScrollIndicator={false} />
     </View>
   );
 }

@@ -3,13 +3,16 @@ import React from 'react';
 import {posterUrl} from '../utils/constants';
 import {vw, vh, fullWidth} from '../utils/dimension';
 import LinearGradient from 'react-native-linear-gradient';
+import FastImage from 'react-native-fast-image';
+
 export default function Show(props: any) {
+  
   return (
     <View>
-      <Image
-        source={{uri: `${posterUrl}${props.img}`}}
+      <FastImage
+        source={{uri: `${posterUrl}${props.img}`,headers: { Authorization: 'someAuthToken' },priority: FastImage.priority.high}}
         style={styles.poster}
-        resizeMode={'stretch'}
+        resizeMode={FastImage.resizeMode.stretch}
       />
       <LinearGradient colors={["#000000","#00000000","#000000"]} style={styles.grad}>
       </LinearGradient>

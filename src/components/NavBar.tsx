@@ -2,7 +2,8 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { fullWidth, vh,vw} from '../utils/dimension'
 
-export default function NavBar() {
+
+export default function NavBar(props :any) {
   return (
     <View style={styles.container}>
       <Image source={require("../assets/netflix_logo_bar.png")} style={styles.logo} resizeMode={"center"}/>

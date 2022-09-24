@@ -70,7 +70,7 @@ export default function Details(props:any) {
           value={password}
           onChangeText={text => ValidPassword(text)}
         />
-        <TouchableOpacity
+        <TouchableOpacity disabled={email=="" && password==""}
           onPress={() => setShowpassword(!showpassword)}
           style={{position: 'absolute', top: vh(40), right: vw(15)}}>
           <Image

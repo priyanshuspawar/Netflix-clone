@@ -2,6 +2,7 @@ import { StyleSheet, Text, View , Image, Pressable} from 'react-native'
 import React from 'react'
 import {url} from '../utils/constants'
 import { vh, vw } from '../utils/dimension'
+import FastImage from 'react-native-fast-image'
 
 export default function Poster(props:any) {
     // console.log("###",props.item.poster_path);
@@ -9,7 +10,7 @@ export default function Poster(props:any) {
     <Pressable onPress={props.screen}>
     <View style={[styles.container,props.style]}>
     <Text style={styles.title}>{props.item[props.title]}</Text>
-    <Image source={{uri:`${url}${props.item.poster_path}`}} style={[styles.poster,props.style]}/>
+    <FastImage source={{uri:`${url}${props.item.poster_path}`,headers: { Authorization: 'someAuthToken' },priority: FastImage.priority.normal}} style={[styles.poster,props.style]}/>
     </View>
     </Pressable>
   )

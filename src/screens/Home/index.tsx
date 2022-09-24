@@ -49,26 +49,7 @@ export default function Home(props: any) {
   const dispatch = useDispatch<any>();
 
   React.useEffect(() => {
-    // dispatch(
-    //   MovieAction((response: []) => {
-    //     setActionMovie(response);
-    //     dispatch(
-    //       Trending((response: []) => {
-    //         setTrending(response);
-    //       }),
-    //     );
-    //     dispatch(
-    //       NetflixOriginals((response: []) => {
-    //         setNetflixOriginals(response);
-    //       }),
-    //     );
-    //     dispatch(
-    //       TopRated((response: []) => {
-    //         setTopRated(response);
-    //       }),
-    //     );
-    //     setAnimate(false);
-    //   }),
+
     dispatch(MovieAction((response: []) => {
       setActionMovie(response);}))
     dispatch(Trending((response: []) => {
@@ -76,16 +57,19 @@ export default function Home(props: any) {
     dispatch(NetflixOriginals((response: []) => {
         setNetflixOriginals(response);}))
     dispatch(TopRated((response: []) => {
-          setTopRated(response);}))
+          setTopRated(response);
+          setAnimate(false);
+        
+        
+        }))
     
 
-    setAnimate(false);
   }, []);
   // console.log(trending[1]?.poster_path);
 
 
   return (
-    <ScrollView style={{backgroundColor: 'black', flex: 1}}>
+    <ScrollView style={{backgroundColor: 'black', flex: 1}} showsVerticalScrollIndicator={false}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <NavBar/>
       {animate && (
@@ -99,6 +83,7 @@ export default function Home(props: any) {
       
       <Show img={trending[1]?.poster_path} title={trending[1]?.title} />
       <Genre genre1={'TV Shows'} genre2={'Movies'} />
+      <View style={{padding:5}}>
       <Contentview
         data={trending}
         title={'Trending'}
@@ -121,7 +106,7 @@ export default function Home(props: any) {
         title={'Action Movies'}
         screen={(e:any)=>{props.navigation.navigate("Content",e)}}
       />
-      {/* </View> */}
+      </View>
     </ScrollView>
   );
 }
