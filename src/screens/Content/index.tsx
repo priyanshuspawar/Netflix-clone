@@ -30,8 +30,8 @@ export default function Content(props: any) {
   const [key, setKey] = React.useState('');
   const [animate, setAnimate] = React.useState(true);
   const [SimilarData,setSimilarData]=React.useState();
-  const [duration,setDuration]=React.useState();
-  const [currentTime,setCurrentTime]=React.useState();
+  const [play,setPlay]=React.useState(false);
+  const plaList=[]
 
   React.useEffect(() => {
     // getGenreMovie("movie",(res)=>{setGenreMovie(res.data.genres)})
@@ -59,11 +59,12 @@ export default function Content(props: any) {
         setKey(e.key);
         setAnimate(false);
       }
+      else{
+        plaList.push(e.key)
+      }
     });
 
-    playerRef.current?.getDuration().then(
-      (duration:any) => setDuration(duration)
-    );
+
     
   },[trailerData])
 
@@ -71,27 +72,12 @@ export default function Content(props: any) {
   
   // console.log("@@@",props.route.params);
 
-  React.useEffect(()=>{
-    current();
-  },[])
-
-  const current=()=>{
-    playerRef.current?.getCurrentTime().then((cur)=>{setCurrentTime(cur)})
-    return(currentTime)
-  }
-  
-
-  
-  
-
-  
-  
 
   return (
     <View style={styles.container}>
         <StatusBar translucent={true} backgroundColor={"transparent"}/>
         <VideoBar screen={()=>{props.navigation.pop()}}/>
-      <View style={styles.player} pointerEvents={"none"}>
+      <View style={styles.player} pointerEvents={"auto"}>
         {animate ? (
           <ActivityIndicator animating={true} size={'large'} color={'red'}  style={styles.loader}/>
         ) : (
@@ -99,31 +85,32 @@ export default function Content(props: any) {
             ref={playerRef}
             height={vh(250)}
             videoId={key}
-            play={true}
+            play={play}
             initialPlayerParams={{
               rel: false,
               modestbranding: true,
               iv_load_policy: 3,
-              controls: false,
-              loop: true,
+              // controls: false,
+              loop: false,
+              preventFullScreen:true
               
             }}
-            onChangeState={(event)=>{event=="playing"?current():setCurrentTime(0)}}
-            
+            onChangeState={(event)=>{}}
+          
             // webViewStyle={{flex:0,height:vh(300)}}
             // webViewProps={{containerStyle:{height:vh(300)}}}
           />
         )}
         
       </View>
-      <Slider maximumValue={duration} thumbTintColor={"red"} value={currentTime}  minimumValue={0} style={styles.slider} maximumTrackTintColor={"black"} minimumTrackTintColor={"red"}/>
+      {/* <Slider maximumValue={duration} thumbTintColor={"red"} value={currentTime} minimumValue={0} style={styles.slider} maximumTrackTintColor={"black"} minimumTrackTintColor={"red"}/> */}
       <ScrollView style={styles.scrollContainer} nestedScrollEnabled={true}>
       <Text style={styles.title}>{media_type == 'tv' || first_air_date !=undefined ? name : title}</Text>
       <View style={{flexDirection:"row"}}>
       <Text style={styles.year}>{media_type == 'tv' || first_air_date !=undefined ? first_air_date?.slice(0,4) : release_date?.slice(0,4)}</Text>
       <AgeRating rating={adult}/>
       </View>
-      <PlayButton/>
+      <PlayButton play={()=>{setPlay(true)}}/>
       <DownloadButton/>
       <Text style={styles.dis}>{overview}</Text>
       <Text style={styles.similartext}>MORE LIKE THIS</Text>
@@ -138,7 +125,7 @@ export default function Content(props: any) {
 const styles = StyleSheet.create({
   player: {
     width: fullWidth,
-    height: vh(199),
+    height: vh(240),
     alignContent:"center",
     padding:vw(8)
   },
@@ -149,7 +136,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 23,
-    marginTop: 5,
+    marginTop: 2,
     fontFamily:"Montserrat-ExtraBold"
   },
   dis: {

@@ -1,15 +1,17 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
+import { vh } from '../../utils/dimension';
 
-export default function Downloads(props: any) {
+export default function Account(props: any) {
   return (
     <View style={styles.container}>
+      <Image source={require("../../assets/profile1.png")} style={{marginBottom:vh(20)}}/>
       <Text
         style={{color: 'white'}}
         onPress={() => {
           props.navigation.reset({index: 0, routes: [{name: 'Details'}]});
         }}>
-        Coming soon.....
+        Logout
       </Text>
     </View>
   );

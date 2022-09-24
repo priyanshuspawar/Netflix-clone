@@ -8,7 +8,6 @@ import {
   StatusBar,
 } from 'react-native';
 import React from 'react';
-import endpoints from '../../utils/endpoints';
 import {
   MovieAction,
   NetflixOriginals,
@@ -16,9 +15,7 @@ import {
   Trending,
 } from '../../Redux/action';
 import {useDispatch, useSelector} from 'react-redux';
-import {getApiCall} from '../../utils/services';
 import Contentview from '../../components/Contentview';
-import Categorytxt from '../../components/Categorytxt';
 import Show from '../../components/Show';
 import Poster from '../../components/Poster';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -26,8 +23,6 @@ import Genre from '../../components/Genre';
 import {vh} from '../../utils/dimension';
 import {vw} from '../../components/dimension';
 import NavBar from '../../components/NavBar';
-import LinearGradient from 'react-native-linear-gradient';
-import TabNavigation from '../../TabNavigation';
 
 type ActionMovie = {
   title: string;
@@ -83,7 +78,7 @@ export default function Home(props: any) {
         />
       )}
       
-      <Show img={trending[1]?.poster_path} title={trending[1]?.title} />
+      <Show img={trending[1]?.poster_path} title={trending[1]?.title} screen={()=>{props.navigation.navigate("Content",trending[1])}}/>
       <Genre genre1={'TV Shows'} genre2={'Movies'} />
       <View style={{padding:5}}>
       <Contentview

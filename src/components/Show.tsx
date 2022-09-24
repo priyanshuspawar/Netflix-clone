@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View,Pressable, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {posterUrl} from '../utils/constants';
 import {vw, vh, fullWidth} from '../utils/dimension';
@@ -28,6 +28,7 @@ export default function Show(props: any) {
             My List
           </Text>
         </View>
+        <Pressable onPress={props.screen}>
         <View style={styles.play}>
           <Image
             source={require('../assets/play.png')}
@@ -36,6 +37,7 @@ export default function Show(props: any) {
           />
           <Text style={{color: 'black', fontWeight: '600'}}>Play</Text>
         </View>
+        </Pressable>
         <View style={styles.info}>
           <Image
             source={require('../assets/info.png')}

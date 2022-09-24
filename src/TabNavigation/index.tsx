@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Discover from '../screens/Discover';
 import {vh, vw} from '../utils/dimension';
-import Downloads from '../screens/Downloads';
+import Account from '../screens/Account';
 import Content from '../screens/Content';
 
 
@@ -39,17 +39,17 @@ export default function TabNavigation() {
           }}
         />
         <Tab.Screen
-          name="discover"
+          name="Downloads"
           component={Discover}
           options={{
-            tabBarLabel: 'Discover',
+            tabBarLabel: 'Downloads',
             tabBarLabelStyle:styles.label,
             tabBarIcon: ({focused}) => (
               <Image
                 source={
                   focused
-                    ? require('../assets/search.png')
-                    : require('../assets/unsearch.png')
+                    ? require('../assets/down.png')
+                    : require('../assets/undown.png')
                 }
                 style={styles.icon}
                 resizeMode={'contain'}
@@ -59,11 +59,11 @@ export default function TabNavigation() {
        }}
         />
 
-      <Tab.Screen name='Downloads' component={Downloads} options={{
-        tabBarLabel:"Downloads",
+      <Tab.Screen name='Account' component={Account} options={{
+        tabBarLabel:"Account",
         tabBarLabelStyle:styles.label,
         tabBarIcon:({focused})=>{
-        return(<Image source={focused?require("../assets/down.png"):require("../assets/undown.png")} style={styles.icon}/>)}
+        return(<Image source={focused?require("../assets/account.png"):require("../assets/unaccount.png")} resizeMode={"contain"} style={styles.icon}/>)}
     }}/>
       </Tab.Navigator>
   );

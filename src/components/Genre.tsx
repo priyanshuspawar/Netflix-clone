@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
         top:60,
     },
     text:{
-        fontSize:14,
-        fontWeight:"400",
-        color:"white"
+        fontSize:12,
+        color:"white",
+        fontFamily:"Montserrat-Medium"
     }
 })

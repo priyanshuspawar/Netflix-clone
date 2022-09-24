@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
-import { vh, vw } from '../utils/dimension'
+import { fullWidth, vh, vw } from '../utils/dimension'
 
 const VideoBar = (props:any) => {
   return (
@@ -16,7 +16,12 @@ export default VideoBar
 
 const styles = StyleSheet.create({
     container:{
-        flexDirection:"row"
+        flexDirection:"row",
+        width:fullWidth,
+        position:"absolute",
+        zIndex:1,
+        backgroundColor:"transparent",
+        height:vh(70)
     },
     crossButton:{
         width:vw(21),
@@ -25,8 +30,6 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         borderRadius:vw(30),
         backgroundColor:"#303030",
-        position:"absolute",
-        zIndex:1,
         top:vh(35),
         left:vw(326)
     },

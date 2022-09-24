@@ -1,13 +1,15 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, Pressable } from 'react-native'
 import React from 'react'
 import { fullWidth, vh, vw } from '../utils/dimension'
 
-const PlayButton = () => {
+const PlayButton = (props:any) => {
   return (
+    <Pressable onPress={props.play}>
     <View style={styles.container}>
       <Image source={require("../assets/play.png")} style={styles.img} resizeMode={"center"}/>
       <Text style={styles.text}>Play</Text>
     </View>
+    </Pressable>
   )
 }
 
