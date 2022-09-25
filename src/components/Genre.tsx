@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import {Pressable ,StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { vw } from '../utils/dimension'
 
@@ -7,8 +7,11 @@ export default function Genre(props:any) {
     <View style={styles.container}>
       <Text style={styles.text}>{props.genre1}</Text>
       <Text style={styles.text}>{props.genre2}</Text>
+      <Pressable onPress={props.modalOpen}>
       <Text style={styles.text}>Categories</Text>
+      </Pressable>
     </View>
+
   )
 }
 
