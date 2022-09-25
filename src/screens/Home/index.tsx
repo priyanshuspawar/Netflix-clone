@@ -6,6 +6,9 @@ import {
   Text,
   View,
   StatusBar,
+  Modal,
+  Image,
+  Pressable
 } from 'react-native';
 import React from 'react';
 import {
@@ -23,6 +26,7 @@ import Genre from '../../components/Genre';
 import {vh} from '../../utils/dimension';
 import {vw} from '../../components/dimension';
 import NavBar from '../../components/NavBar';
+import ModalView from '../../components/ModalView';
 
 type ActionMovie = {
   title: string;
@@ -42,6 +46,7 @@ export default function Home(props: any) {
     Array<ActionMovie>
   >([]);
   const dispatch = useDispatch<any>();
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   React.useEffect(() => {
 
@@ -79,7 +84,25 @@ export default function Home(props: any) {
       )}
       
       <Show img={trending[1]?.poster_path} title={trending[1]?.title} screen={()=>{props.navigation.navigate("Content",trending[1])}}/>
-      <Genre genre1={'TV Shows'} genre2={'Movies'} />
+      <Genre genre1={'TV Shows'} genre2={'Movies'} modalOpen={()=>{setModalVisible(true)}}/>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        // onRequestClose={() => {
+        // setModalVisible(!modalVisible);
+        // }}
+      
+      >
+      <View style={{flex:1}}>
+        <ModalView/>
+        <Pressable style={styles.closeButtonContainer} onPress={()=>{setModalVisible(false)}}>
+      
+        <Image source={require("../../assets/cross_black.png")} style={styles.closeButton} resizeMode={"contain"}/>
+    
+        </Pressable>
+      </View>
+      </Modal>
       <View style={{padding:5}}>
       <Contentview
         data={trending}
@@ -117,4 +140,21 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     flex: 1,
   },
+  closeButton:{
+    height:vh(15),
+    width:vw(16),
+
+},
+closeButtonContainer:{
+  backgroundColor:"white",
+  borderRadius:vh(20),
+  width:vw(28),
+  justifyContent:"center",
+  height:vh(30),
+  position:"absolute",
+  alignItems:"center",
+  top:vh(700),
+  alignSelf:"center"
+}
+
 });

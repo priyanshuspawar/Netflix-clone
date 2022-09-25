@@ -77,7 +77,7 @@ export default function Content(props: any) {
     <View style={styles.container}>
         <StatusBar translucent={true} backgroundColor={"transparent"}/>
         <VideoBar screen={()=>{props.navigation.pop()}}/>
-      <View style={styles.player} pointerEvents={"auto"}>
+      <View style={styles.player}>
         {animate ? (
           <ActivityIndicator animating={true} size={'large'} color={'red'}  style={styles.loader}/>
         ) : (
@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
     width: fullWidth,
     height: vh(240),
     alignContent:"center",
-    padding:vw(8)
+    padding:vw(8),
+    marginTop:vh(5)
   },
   container: {
     flex: 1,
