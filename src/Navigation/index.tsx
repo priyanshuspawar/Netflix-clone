@@ -9,7 +9,10 @@ import TabNavigation from '../TabNavigation';
 import Splash from '../screens/Splash'
 import Search from '../screens/Search/Search';
 
+
 export default function Navgation(props: any) {
+ 
+
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>

@@ -1,18 +1,32 @@
-import {StyleSheet, Image, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Image, Text, View, Animated} from 'react-native';
+import React, { useRef } from 'react';
 import FastImage from 'react-native-fast-image';
 import {vh, fullWidth, vw} from '../../utils/dimension';
+import {useSelector} from 'react-redux';
 
 const Splash = (props: any) => {
+  const {email} = useSelector((state: any) => state.UserAuthReducer);
+const fade = useRef(new Animated.Value(0)).current;
+
   React.useEffect(() => {
-    setTimeout(() => props.navigation.replace('Details'), 3000);
+    Animated.timing(fade,{
+      toValue:1,
+      duration:2000,
+      useNativeDriver:true
+    }).start()
+
+    setTimeout(() => {
+      email == ''
+        ? props.navigation.replace('Details')
+        : props.navigation.replace('Home');
+    }, 2000);
   }, []);
 
   return (
     <View style={styles.container}>
-      <Image
+      <Animated.Image
         source={require('../../assets/netflix_start.jpeg')}
-        style={styles.logo}
+        style={[styles.logo,{transform:[{scale:fade}]}]}
       />
     </View>
   );

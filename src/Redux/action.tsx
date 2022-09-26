@@ -1,5 +1,3 @@
-import React from "react";
-import { useDispatch } from "react-redux";
 import endpoints from "../utils/endpoints";
 import { getApiCall, getSimilar } from "../utils/services";
 

@@ -1,32 +1,50 @@
-type typestate={
+import { combineReducers } from "redux";
+
+type Logintypestate={
     email:string;
     password:string;
-    action_movies:Object;
-    onChange:any,
+
+}
+
+type tmdbDataypestate={
+    action_movies:Object,
     TopRated:Object,
     Netflix_Originals:Object,
     Trending:Object
     Similar:Object    
 }
 
-const initialState:typestate={
+
+const initialStateLogin:Logintypestate={
     email:"",
-    password:"",
+    password:"", 
+}
+
+const initialStateTMDBdata:tmdbDataypestate={
     action_movies:{},
-    onChange:"",
     TopRated:{},
     Netflix_Originals:{},
     Trending:{},
-    Similar:{}    
+    Similar:{}
 }
-const reducer=(state=initialState,action: { type: string; payload: string; })=>{
+
+
+export const UserAuthReducer=(state=initialStateLogin,action: { type: string; payload: string; })=>{
     switch(action.type){
         case "EMAIL":
             // console.log("$$$$$$",...action.payload);
             return {...state,email:action.payload}
         case "PASS":
             return{...state,password:action.payload}
-        
+        default:
+            return state;
+    }
+
+}
+
+
+export const MovieDataReducer=(state=initialStateTMDBdata,action: { type: string; payload: string; })=>{
+    switch(action.type){
         case "ACION_MOVIES":
             return{...state,action_movies:action.payload}
         case "TopRated":
@@ -40,7 +58,9 @@ const reducer=(state=initialState,action: { type: string; payload: string; })=>{
         default:
             return state;
     }
-
 }
 
-export default reducer;
+export const rootReducer=combineReducers({
+    UserAuthReducer,
+    MovieDataReducer
+})

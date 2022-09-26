@@ -88,7 +88,7 @@ export default function Details(props:any) {
       </View>
       <Pressable
         onPress={() => {
-          if(!(mail=="" && password=="")){
+          if(mail=="" && password==""){
             setEmpty(true)
           }
           else{
