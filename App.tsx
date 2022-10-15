@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Login from './src/screens/Page/Login'
+import Login from './src/screens/SignIn/Login'
 import { Provider } from 'react-redux'
 import { persistor, store } from './src/Redux/store'
 import Navgation from './src/Navigation'

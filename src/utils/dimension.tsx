@@ -33,5 +33,6 @@ export const vh = (height: number) => {
 };
 
 export const fullWidth = PixelRatio.roundToNearestPixel(screenWidth * 100 / 100);
+export const fullheight = PixelRatio.roundToNearestPixel(screenHeight * 100 / 100);
 
 // https://medium.com/building-with-react-native/how-to-develop-responsive-uis-with-react-native-1x03-a448097c9503

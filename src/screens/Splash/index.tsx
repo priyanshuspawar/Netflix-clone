@@ -17,7 +17,7 @@ const fade = useRef(new Animated.Value(0)).current;
 
     setTimeout(() => {
       email == ''
-        ? props.navigation.replace('Details')
+        ? props.navigation.replace('Opening')
         : props.navigation.replace('Home');
     }, 2000);
   }, []);

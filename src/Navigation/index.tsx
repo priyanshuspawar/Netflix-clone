@@ -2,12 +2,12 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '../screens/Home';
-import Details from '../screens/Page/Details';
+import Details from '../screens/SignIn/Details';
 import Content from '../screens/Content';
 import TabNavigation from '../TabNavigation';
 import Splash from '../screens/Splash'
 import Search from '../screens/Search/Search';
+import Opening from '../screens/Opening';
 
 
 export default function Navgation(props: any) {
@@ -24,6 +24,7 @@ export default function Navgation(props: any) {
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Content" component={Content} />
         <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen name='Opening' component={Opening}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

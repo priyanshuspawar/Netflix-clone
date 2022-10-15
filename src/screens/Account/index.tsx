@@ -16,7 +16,7 @@ export default function Account(props: any) {
         style={{color: 'white'}}
         onPress={() => {
           dispatch(EmailAction(""))
-          props.navigation.reset({index: 0, routes: [{name: 'Details'}]});
+          props.navigation.reset({index: 0, routes: [{name: 'Opening'}]});
         }}>
         Logout
       </Text>
