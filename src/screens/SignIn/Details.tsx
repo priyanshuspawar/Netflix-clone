@@ -7,22 +7,46 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React from 'react';
 import {vh, vw} from '../../utils/dimension';
 import {useDispatch, useSelector} from 'react-redux';
-import { EmailAction,PassAction } from '../../Redux/action';
-import Navgation from '../../Navigation';
+import {EmailAction, PassAction} from '../../Redux/action';
+import auth from '@react-native-firebase/auth';
 
-export default function Details(props:any) {
+
+
+// import user from '../../Auth/UserAuth';
+
+export default function Details(props: any) {
   const dispatch = useDispatch();
-  const {email}: string | any = useSelector(state => state);
+  // const {email}: string | any = useSelector(state => state);
   const [mail, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const [showpassword, setShowpassword] = React.useState(true);
   const [CheckValidEmail, setCheckValidEmail] = React.useState(false);
   const [CheckValidpass, setCheckValidpass] = React.useState(false);
-  const [empty,setEmpty]=React.useState(false);
+  
+
+  const Signin=()=>{
+    auth()
+    .signInWithEmailAndPassword(mail,password)
+    .then(()=>{
+      console.log("working");
+      dispatch(EmailAction(mail));
+      dispatch(PassAction(password));
+      props.navigation.replace('Home');
+    })
+    .catch((error)=>{
+      console.log(error.code);
+    })
+  }
+
+
+
+
+
 
   const ValidEmail = (text: string) => {
     const re = /\S+@\S+\.\S+/;
@@ -46,65 +70,59 @@ export default function Details(props:any) {
       setCheckValidpass(true);
     }
   };
+  // console.log(user);
 
   return (
-    <View style={{flex:1,backgroundColor:"black",justifyContent:"center"}}>
-    <StatusBar translucent={true} backgroundColor={"transparent"}/>
-    <View style={{alignItems: 'center'}}>
-      <Image
-        source={require('../../assets/Netflixlogo.png')}
-        resizeMode={'contain'}
-        style={{height: vh(120), width: vw(300)}}
-      />
-      <TextInput
-        style={[styles.input, CheckValidEmail ? {borderColor: 'red'} : {}]}
-        placeholder="Email"
-        placeholderTextColor={'white'}
-        value={mail}
-        onChangeText={text => ValidEmail(text)}
-      />
-      <View>
-        <TextInput
-          style={[styles.input, CheckValidpass ? {borderColor: 'red'} : {}]}
-          secureTextEntry={showpassword}
-          placeholderTextColor={'white'}
-          placeholder="Password"
-          value={password}
-          onChangeText={text => ValidPassword(text)}
+    <KeyboardAvoidingView
+      style={{flex: 1, backgroundColor: 'black', justifyContent: 'center'}}>
+      <StatusBar translucent={true} backgroundColor={'transparent'} />
+      <View style={{alignItems: 'center'}}>
+        <Image
+          source={require('../../assets/Netflixlogo.png')}
+          resizeMode={'contain'}
+          style={{height: vh(120), width: vw(300)}}
         />
-        <TouchableOpacity disabled={email=="" && password==""}
-          onPress={() => setShowpassword(!showpassword)}
-          style={{position: 'absolute', top: vh(40), right: vw(15)}}>
-          <Image
-            source={
-              !showpassword
-                ? require('../../assets/eye.png')
-                : require('../../assets/hidden.png')
-            }
-            style={{width: vw(20), height: vh(20)}}
-            resizeMode="contain"
+        <TextInput
+          style={[styles.input, CheckValidEmail ? {borderColor: 'red'} : {}]}
+          placeholder="Email"
+          placeholderTextColor={'white'}
+          value={mail}
+          onChangeText={text => ValidEmail(text)}
+        />
+        <View>
+          <TextInput
+            style={[styles.input, CheckValidpass ? {borderColor: 'red'} : {}]}
+            secureTextEntry={showpassword}
+            placeholderTextColor={'white'}
+            placeholder="Password"
+            value={password}
+            onChangeText={text => ValidPassword(text)}
           />
-        </TouchableOpacity>
-      </View>
-      <Pressable
-        onPress={() => {
-          if(mail=="" && password==""){
-            setEmpty(true)
-          }
-          else{
-            setEmpty(false)
-          dispatch(EmailAction(mail))
-          dispatch(PassAction(password))
-          props.navigation.replace("Home")}
-        }}
-        style={styles.buttonContainer}>
-        <Text style={styles.buttomtxt}>Sign In</Text>
-      </Pressable>
-      {empty&&<Text style={{color:"white"}}>Please....</Text>}
+          <TouchableOpacity
+            onPress={() => setShowpassword(!showpassword)}
+            style={{position: 'absolute', top: vh(40), right: vw(15)}}>
+            <Image
+              source={
+                !showpassword
+                  ? require('../../assets/eye.png')
+                  : require('../../assets/hidden.png')
+              }
+              style={{width: vw(20), height: vh(20)}}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
+        <Pressable
+          disabled={mail == '' && password == ''}
+          onPress={Signin}
+          style={styles.buttonContainer}>
+          <Text style={styles.buttomtxt}>Sign In</Text>
+        </Pressable>
+        {/* {empty&&<Text style={{color:"white"}}>Please....</Text>} */}
 
-      <Text style={{color: 'white'}}>{email}</Text>
-    </View>
-    </View>
+        {/* <Text style={{color: 'white'}}>{email}</Text> */}
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -124,8 +142,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: vh(50),
-    width: 150,
-    borderWidth: 4,
+    width: vw(320),
+    borderWidth: 1,
     borderColor: '#333333',
     justifyContent: 'center',
     alignItems: 'center',

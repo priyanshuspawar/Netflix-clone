@@ -1,11 +1,21 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import {vh} from '../../utils/dimension';
-import { EmailAction } from '../../Redux/action';
-import { useDispatch } from 'react-redux';
+import {EmailAction} from '../../Redux/action';
+import {useDispatch} from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 export default function Account(props: any) {
-  const dispatch=useDispatch();  
+  const dispatch = useDispatch();
+  const SignOut = () => {
+    auth()
+      .signOut()
+      .then(() => {
+        console.log('User signed out!')
+        dispatch(EmailAction(''));
+        props.navigation.reset({index: 0, routes: [{name: 'Opening'}]});
+      });
+  };
   return (
     <View style={styles.container}>
       <Image
@@ -14,10 +24,9 @@ export default function Account(props: any) {
       />
       <Text
         style={{color: 'white'}}
-        onPress={() => {
-          dispatch(EmailAction(""))
-          props.navigation.reset({index: 0, routes: [{name: 'Opening'}]});
-        }}>
+        onPress={
+          SignOut
+        }>
         Logout
       </Text>
     </View>

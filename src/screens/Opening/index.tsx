@@ -8,23 +8,28 @@ import JoinButton from './JoinButton'
 
 
 export default function Opening(props:any) {
-
+  const [Active,SetActive]=React.useState(0);
   const BgImage=[
-    {id:1,img:require("../../assets/netflixmainbg.png"),blur:true,title:"Unlimited movies, TV shows, and more.",description:"Watch anywhere. Cancel anytime. Tap the link below to sign up."},
-    {id:2,img:require("../../assets/netflixmainbg2.png"),blur:false,title:"Watch on any device",description:"Stream on your phone, tablet, laptop, and TV without paying more."},
-    {id:3,img:require("../../assets/netflixmainbg3.png"),blur:false,title:"Download and go",description:"Save your data, watch offline on a plane, train, or submarine...."},
-    {id:4,img:require("../../assets/netflixmainbg4.png"),blur:false,title:"No pesky contracts",description:"Join today, cancel anytime."},
-  ]
-
+    {key:1,img:require("../../assets/netflixmainbg.png"),blur:true,title:"Unlimited movies, TV shows, and more.",description:"Watch anywhere. Cancel anytime. Tap the link below to sign up."},
+    {key:2,img:require("../../assets/netflixmainbg2.png"),blur:false,title:"Watch on any device",description:"Stream on your phone, tablet, laptop, and TV without paying more."},
+    {key:3,img:require("../../assets/netflixmainbg3.png"),blur:false,title:"Download and go",description:"Save your data, watch offline on a plane, train, or submarine...."},
+    {key:4,img:require("../../assets/netflixmainbg4.png"),blur:false,title:"No pesky contracts",description:"Join today, cancel anytime."},
+  ];
+  const onScroll=({nativeEvent}:any)=>{
+    const slide=Math.ceil(nativeEvent.contentOffset.x/nativeEvent.layoutMeasurement.width)
+    if (slide!=Active){
+      SetActive(slide)
+    }
+  }
 
   return (
     <View style={{flex:1,alignItems:"center"}}>
     <StatusBar backgroundColor={"transparent"} translucent={true}/>
     <NavBar screen={()=>{props.navigation.navigate("Details")}}/>
-    <ScrollView horizontal={true} pagingEnabled={true} showsHorizontalScrollIndicator={false}>
+    <ScrollView horizontal={true} pagingEnabled={true} showsHorizontalScrollIndicator={false} onScroll={(event)=>{onScroll(event)}}>
       {BgImage.map((e,i)=>{
         return(
-          <View style={styles.bgimage}>
+          <View style={styles.bgimage} key={e.key}>
             <Image source={e.img} style={styles.bgimage} resizeMethod={"resize"}/>    
             <LinearGradient colors={["#000000","#00000020","#00000099"]} style={[styles.grad,e.blur?{position:"absolute"}:{position:"relative"}]}>      
             </LinearGradient>
@@ -36,7 +41,14 @@ export default function Opening(props:any) {
 
       })}
     </ScrollView>
-    <JoinButton/>
+    <View style={styles.dotContainer}>
+    {BgImage.map((e,i)=>{
+      return(
+        <View key={e.key} style={[styles.dotStyle,Active==i?{backgroundColor:"#F40612"}:{backgroundColor:"#FFFFFF90"}]}></View>
+      )
+    })}
+    </View>
+    <JoinButton onPress={()=>{props.navigation.navigate("SignUp")}}/>
     </View>
   )
 }
@@ -74,5 +86,17 @@ const styles = StyleSheet.create({
     zIndex:1,
     bottom:vh(240),
     paddingHorizontal:vw(25)
-  }
+  },
+  dotContainer:{
+    flexDirection:"row",
+    position:"absolute",
+    bottom:vh(110),
+
+  },
+  dotStyle:{
+    height:vh(9),
+    width:vw(8),
+    margin:vw(3),
+    borderRadius:vh(35)
+  },
 })

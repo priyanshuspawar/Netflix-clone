@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,StatusBar } from 'react-native'
 import React from 'react'
-import Login from './src/screens/SignIn/Login'
 import { Provider } from 'react-redux'
 import { persistor, store } from './src/Redux/store'
 import Navgation from './src/Navigation'
@@ -22,6 +21,7 @@ export default function App() {
   return (
     <Provider store={store} >
       <PersistGate loading={null} persistor={persistor}>
+      <StatusBar translucent={true} backgroundColor={"transparent"}/>
       <Navgation/>
       </PersistGate>
       </Provider>

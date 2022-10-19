@@ -27,7 +27,7 @@ import {vh} from '../../utils/dimension';
 import {vw} from '../../components/dimension';
 import NavBar from '../../components/NavBar';
 import ModalView from '../../components/ModalView';
-
+import auth from '@react-native-firebase/auth';
 type ActionMovie = {
   title: string;
   poster_path: String;
@@ -59,9 +59,8 @@ export default function Home(props: any) {
     dispatch(TopRated((response: []) => {
           setTopRated(response);
           setAnimate(false);
-        
-        
         }))
+        // console.log(auth().currentUser)
     
 
   }, []);

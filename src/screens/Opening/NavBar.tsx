@@ -5,12 +5,12 @@ import { vw } from '../../utils/dimension'
 
 const NavBar = (props:any) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,props.styleContainer]}>
       <TouchableOpacity>
       <Image source={require("../../assets/Netflixlogo.png")} style={styles.img} resizeMethod={"auto"}/>
       </TouchableOpacity>
-      <Text style={styles.text1}> Privacy </Text>
-      <Text style={styles.text2} onPress={props.screen}> Sign In </Text>
+      <Text style={[styles.text1,props.styletext1]}> Privacy </Text>
+      <Text style={[styles.text2,props.styletext2]} onPress={props.screen}> Sign In </Text>
     </View>
   )
 }
@@ -36,14 +36,12 @@ const styles = StyleSheet.create({
         backgroundColor:"transparent"
     },
     text2:{
-        fontFamily:"Montserrat-Medium",
-        color:"white",
+        fontFamily:"Montserrat-SemiBold",
         fontSize:15,
         marginRight:vw(4)
     },
     text1:{
         fontFamily:"Montserrat-Regular",
-        color:"#FFFFFA",
         fontSize:15,
         marginRight:vw(4),marginLeft:vw(120)
     }
