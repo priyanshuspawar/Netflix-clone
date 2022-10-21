@@ -49,11 +49,11 @@ const InputField = (props: any, ref: any) => {
         styles.container,
         {paddingTop: vh(padding)},
         props.fieldStyle,
-        focus
-          ? [props.InActivebackgroundColor, props.OutlineColor]
-          : [props.ActivebackgroundColor],
+        !focus
+          ? props.InActivebackgroundColor
+          : [props.ActivebackgroundColor,props.OutlineColor]
       ]}>
-      {hide && <Text style={styles.label}>{props.label}</Text>}
+      {hide && <Text style={[styles.label,{color:props.LabelColor}]}>{props.label}</Text>}
       <TextInput
         autoCapitalize={'none'}
         onChangeText={text => {
@@ -61,13 +61,14 @@ const InputField = (props: any, ref: any) => {
           onChangeText(text);
         }}
         value={value}
+        
         secureTextEntry={props.secureTextEntry==Show}
         style={[
           styles.input,
-          props.TextColor,
-          focus
+          props.TextColor,{marginTop:props.marginTop},
+          !focus
             ? props.InActivebackgroundColor
-            : [props.ActivebackgroundColor, {paddingTop: vh(1)}],
+            : [props.ActivebackgroundColor, {paddingTop: props.paddingTopInputField}],
         ]}
         onSubmitEditing={({nativeEvent}) => {
           setValue(nativeEvent.text);
@@ -79,10 +80,10 @@ const InputField = (props: any, ref: any) => {
         blurOnSubmit
         selectionColor={'white'}
         placeholder={placeValue}
-        placeholderTextColor={'#b2b2b2'}
+        placeholderTextColor={props.placeholderTextColor}
         ref={ref}
       />
-      {props?.secureTextEntry&&<Text onPress={()=>{setShow(!Show)}} style={styles.secureLabel}>{!Show?"Show":"Hide"}</Text>}
+      {props?.secureTextEntry&&<Text onPress={()=>{setShow(!Show)}} style={[styles.secureLabel,{color:props.secureTextColor}]}>{!Show?"Show":"Hide"}</Text>}
     </View>
   );
 };
@@ -102,22 +103,22 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 15,
     height: vh(40),
-    marginTop: vh(5),
-    color:"#000000"
+    marginTop: vh(8),
+    color:"#000000",fontFamily:"Montserrat-Regular"
   },
   label: {
-    color: '#b2b2b2',
     fontSize: 10,
     position: 'absolute',
-    zindex: 1,
+    zindex: 100,
     left: vw(13),
     fontWeight: '500',
     top: vh(2),
+    fontFamily:"Montserrat-Regular"
   },
   secureLabel:{
     position:"absolute",
     right:20,
-    top:13
+    top:15
 
   }
 });

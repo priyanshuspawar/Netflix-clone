@@ -25,7 +25,7 @@ export default function Opening(props:any) {
   return (
     <View style={{flex:1,alignItems:"center"}}>
     <StatusBar backgroundColor={"transparent"} translucent={true}/>
-    <NavBar screen={()=>{props.navigation.navigate("Details")}} styletext1={{color:"#FFFFFF"}} styletext2={{color:"#FFFFFF"}}/>
+    <NavBar screen={()=>{props.navigation.navigate("Details")}} change={()=>{}} styletext1={{color:"#FFFFFF"}} styletext2={{color:"#FFFFFF"}}/>
     <ScrollView horizontal={true} pagingEnabled={true} showsHorizontalScrollIndicator={false} onScroll={(event)=>{onScroll(event)}}>
       {BgImage.map((e,i)=>{
         return(

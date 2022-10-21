@@ -6,7 +6,7 @@ import { vw } from '../../utils/dimension'
 const NavBar = (props:any) => {
   return (
     <View style={[styles.container,props.styleContainer]}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={props.change}>
       <Image source={require("../../assets/Netflixlogo.png")} style={styles.img} resizeMethod={"auto"}/>
       </TouchableOpacity>
       <Text style={[styles.text1,props.styletext1]}> Privacy </Text>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         marginTop:vh(25),
         position:"absolute",
-        zIndex:1,
+        zIndex:1000,
         paddingHorizontal:vw(5)
     },
     img:{

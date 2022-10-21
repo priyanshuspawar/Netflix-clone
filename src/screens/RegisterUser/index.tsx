@@ -1,6 +1,7 @@
 import {
   StyleSheet,
   Text,
+  TextInput,
   Image,
   View,
   ImageBackground,
@@ -26,8 +27,8 @@ const RegisterUser = (props: any) => {
     {id: 1, planActive: false},
     {id: 2, planActive: false},
   ];
-  const firstTextInput = React.useRef(null);
-  const secondTextInput = React.useRef(null);
+  const firstTextInput = React.useRef<TextInput>(null);
+  const secondTextInput = React.useRef<TextInput>(null);
   const [scroll, setScroll] = React.useState(1);
   const [Email, setEmail] = React.useState('');
   const [Password, setPassword] = React.useState('');
@@ -56,7 +57,7 @@ const RegisterUser = (props: any) => {
     y: 0,
   });
 
-  const [Scrollref, SetScrollref] = React.useState(null);
+  const [Scrollref, SetScrollref] = React.useState<any>(null);
 
   const SignUp = () => {
     auth()
@@ -156,6 +157,8 @@ const RegisterUser = (props: any) => {
       <NavBar
         styletext2={{color: 'black', fontSize: 15}}
         styletext1={{color: 'black', fontSize: 14}}
+        change={()=>{props.navigation.replace("Opening")}}
+        
         styleContainer={{
           borderBottomWidth: 1,
           borderColor: '#00000040',
@@ -175,7 +178,7 @@ const RegisterUser = (props: any) => {
           <ScrollView
           scrollEnabled={false}
             automaticallyAdjustKeyboardInsets={true}
-            onScroll={nativeEvent => {
+            onScroll={(nativeEvent:any) => {
               setcontentOffset(nativeEvent.nativeEvent.contentSize);
             }}
             style={{alignSelf: 'center'}}
@@ -196,16 +199,20 @@ const RegisterUser = (props: any) => {
                   {e?.credentialsRequired && (
                     <InputField
                       label={'Email'}
+                      LabelColor={"#000000"}
                       InActivebackgroundColor={'white'}
                       fieldStyle={{borderColor: '#00000075', borderWidth: 1}}
                       ActivebackgroundColor={'white'}
+                      marginTop={vh(5)}
                       textColor={{color: '#000000'}}
                       ref={firstTextInput}
-                      onChangeText={text => ValidEmail(text)}
-                      submitediting={value => {
+                      onChangeText={(text : string)=> ValidEmail(text)}
+                      placeholderTextColor={"#000000"}
+                      submitediting={(value:string )=> {
                         setEmail(value);
                         secondTextInput.current.focus();
                       }}
+              
                       OutlineColor={
                         !CheckValidEmail
                           ? {borderColor: '#1c84fc', borderWidth: 1}
@@ -226,14 +233,16 @@ const RegisterUser = (props: any) => {
                   {e?.credentialsRequired && (
                     <InputField
                       label={'Add a password'}
+                      placeholderTextColor={"#000000"}
+                      LabelColor={"#000000"}
+                      textColor={{color: '#000000'}}
                       InActivebackgroundColor={'white'}
                       fieldStyle={{borderColor: '#00000075', borderWidth: 1}}
                       ActivebackgroundColor={'white'}
-                      onChangeText={text => ValidPassword(text)}
-                      textColor={{color: 'black'}}
+                      onChangeText={(text:string) => ValidPassword(text)}
                       ref={secondTextInput}
                       secureTextEntry={true}
-                      submitediting={value => {
+                      submitediting={(value:any) => {
                         setPassword(value);
                       }}
                       OutlineColor={

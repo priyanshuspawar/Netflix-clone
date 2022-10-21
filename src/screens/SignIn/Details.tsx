@@ -14,6 +14,8 @@ import {vh, vw} from '../../utils/dimension';
 import {useDispatch, useSelector} from 'react-redux';
 import {EmailAction, PassAction} from '../../Redux/action';
 import auth from '@react-native-firebase/auth';
+import InputField from "../../components/InputField";
+import NavrBarSignIn from '../../components/NavrBarSignIn';
 
 
 
@@ -27,7 +29,8 @@ export default function Details(props: any) {
   const [showpassword, setShowpassword] = React.useState(true);
   const [CheckValidEmail, setCheckValidEmail] = React.useState(false);
   const [CheckValidpass, setCheckValidpass] = React.useState(false);
-  
+  const firstTextInput = React.useRef<any>(null);
+  const secondTextInput = React.useRef<any>(null);
 
   const Signin=()=>{
     auth()
@@ -71,58 +74,86 @@ export default function Details(props: any) {
     }
   };
   // console.log(user);
-
+  console.log("checl");
+  
   return (
-    <KeyboardAvoidingView
-      style={{flex: 1, backgroundColor: 'black', justifyContent: 'center'}}>
+    <View
+    style={{flex: 1, backgroundColor: '#000000'}}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
-      <View style={{alignItems: 'center'}}>
-        <Image
-          source={require('../../assets/Netflixlogo.png')}
-          resizeMode={'contain'}
-          style={{height: vh(120), width: vw(300)}}
-        />
-        <TextInput
+      <NavrBarSignIn change={()=>{props.navigation.replace("Opening")}}/>
+      <KeyboardAvoidingView>
+        {/* <TextInput
           style={[styles.input, CheckValidEmail ? {borderColor: 'red'} : {}]}
           placeholder="Email"
           placeholderTextColor={'white'}
           value={mail}
           onChangeText={text => ValidEmail(text)}
+        /> */}
+        
+        <InputField 
+        label={"Email"}
+        LabelColor={"#FFFFFF"}
+        ref={firstTextInput}
+        marginTop={vh(8)}
+        editable={true}
+        TextColor={{color:"#FFFFFF",height:vh(50)}}
+        placeholderTextColor={"#E2E2E2"}
+        labelstyle={{color:"#FFFFFF",marginBottom:vh(2)}}
+        InActivebackgroundColor={{backgroundColor:"#494949"}}
+        ActivebackgroundColor={{backgroundColor:"#505050"}}
+        fieldStyle={{height:vh(70),marginVertical:vh(20),borderRadius:vh(6),marginTop:vh(200)}}
+        OutlineColor={
+          !CheckValidEmail
+            ? {borderColor: 'transparent', borderWidth: 1}
+            : {borderColor: 'red', borderWidth: 1}
+        }
+        onChangeText={(text:string) => ValidEmail(text)}
+        submitediting={(value:string) => {
+          secondTextInput.current.focus();
+          setEmail(value);
+        }}
         />
-        <View>
-          <TextInput
-            style={[styles.input, CheckValidpass ? {borderColor: 'red'} : {}]}
-            secureTextEntry={showpassword}
-            placeholderTextColor={'white'}
-            placeholder="Password"
-            value={password}
-            onChangeText={text => ValidPassword(text)}
-          />
-          <TouchableOpacity
-            onPress={() => setShowpassword(!showpassword)}
-            style={{position: 'absolute', top: vh(40), right: vw(15)}}>
-            <Image
-              source={
-                !showpassword
-                  ? require('../../assets/eye.png')
-                  : require('../../assets/hidden.png')
-              }
-              style={{width: vw(20), height: vh(20)}}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
+
+<InputField 
+        label={"Password"}
+        LabelColor={"#FFFFFF"}
+        marginTop={vh(8)}
+        editable={true}
+        TextColor={{color:"#FFFFFF"}}
+        placeholderTextColor={"#E2E2E2"}
+        labelstyle={{color:"#FFFFFF",marginBottom:vh(2)}}
+        secureTextColor={"#E2E2E2"}
+        secureTextEntry={true}
+        InActivebackgroundColor={{backgroundColor:"#494949"}}
+        ActivebackgroundColor={{backgroundColor:"#505050"}}
+        fieldStyle={{height:vh(70),borderRadius:vh(6)}}
+        OutlineColor={
+          !CheckValidpass
+            ? {borderColor: 'transparent', borderWidth: 1}
+            : {borderColor: 'red', borderWidth: 1}
+        }
+        onChangeText={(text:string) => ValidPassword(text)}
+        ref={secondTextInput}
+        submitediting={(value:string) => {
+          setEmail(value);
+        }}
+        />
         <Pressable
           disabled={mail == '' && password == ''}
           onPress={Signin}
           style={styles.buttonContainer}>
           <Text style={styles.buttomtxt}>Sign In</Text>
         </Pressable>
-        {/* {empty&&<Text style={{color:"white"}}>Please....</Text>} */}
 
-        {/* <Text style={{color: 'white'}}>{email}</Text> */}
-      </View>
+      
     </KeyboardAvoidingView>
+
+    <TouchableOpacity onPress={()=>{props.navigation.replace("Opening")}}>
+    <Text style={styles.signuptext}>New to Netflix? Sign up now.</Text>
+    </TouchableOpacity>
+    <Text style={styles.signInPageDis}>Sign in is protected by Google to ensure you're not a bot
+    </Text>
+      </View>
   );
 }
 
@@ -137,15 +168,40 @@ const styles = StyleSheet.create({
     paddingLeft: vw(10),
   },
   buttomtxt: {
-    fontSize: 20,
-    color: 'white',
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontFamily:"Montserrat-SemiBold"
   },
   buttonContainer: {
-    height: vh(50),
-    width: vw(320),
-    borderWidth: 1,
-    borderColor: '#333333',
+    height: vh(60),
+    width: vw(285),
+    borderWidth: 2,
+    borderColor: '#d2d2d2',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop:vh(35),
+    alignSelf:"center",
+    borderRadius:vh(6),marginBottom:vh(20)
   },
+  signInPageDis:{
+    fontSize: 14,
+    color: '#b2b2b2',
+    fontFamily:"Montserrat-Medium",
+    textAlign:"center",
+    paddingHorizontal:vw(30),
+    marginTop:vh(70)
+  },
+  Notation:{
+    marginTop:vh(50),
+    color: '#b2b2b2',
+    fontFamily:"Montserrat-Regular",
+    textAlign:"center",paddingHorizontal:vw(100)
+  },
+  signuptext:{
+    fontSize: 16,
+    color: '#e2e2e2',
+    fontFamily:"Montserrat-Bold",
+    textAlign:"center",
+    marginTop:vh(20),
+  }
 });
