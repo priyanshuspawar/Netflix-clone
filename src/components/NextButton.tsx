@@ -5,7 +5,7 @@ import { vh, vw } from '../utils/dimension'
 
 const NextButton = (props:any) => {
   return (
-    <Pressable onPress={props.change}>
+    <Pressable onPress={props.change} disabled={props.disabled}>
     <View style={styles.container}>
       <Text style={styles.label}>{props.label}</Text>
     </View>

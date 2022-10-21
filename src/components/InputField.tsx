@@ -1,28 +1,23 @@
-import {StyleSheet, Text, View, Animated, TextInput} from 'react-native';
+import {StyleSheet, Text, View, Animated, TextInput,TouchableOpacity} from 'react-native';
 import React from 'react';
 import {vh, vw} from '../utils/dimension';
 
 const InputField = (props: any, ref: any) => {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState<string>();
   const [padding, setpadding] = React.useState(5);
   const [placeValue, setplaceValue] = React.useState(props.label);
   const [hide, setHide] = React.useState(false);
   const [focus, setfocus] = React.useState(false);
   const moveText = React.useRef(new Animated.Value(0)).current;
+  const [Show,setShow]=React.useState(true)
 
-  // React.useEffect(()=>{
-  //     if(value!==""){
-  //         moveTextTop();
-  //     }
-  //     else if(value===""){
-  //         moveTextBottom();
-  //     }
 
-  // },[value])
-
-  const onChangeText = (text: string) => {
-    setValue(text);
-  };
+  const onChangeText = React.useCallback(
+    (text: string) => {
+      setValue(text);
+    },
+    [value],
+  );
 
   const onFocusHandler = () => {
     setfocus(true);
@@ -54,18 +49,29 @@ const InputField = (props: any, ref: any) => {
         styles.container,
         {paddingTop: vh(padding)},
         props.fieldStyle,
-        focus ? props.InActivebackgroundColor : props.ActivebackgroundColor,
+        focus
+          ? [props.InActivebackgroundColor, props.OutlineColor]
+          : [props.ActivebackgroundColor],
       ]}>
       {hide && <Text style={styles.label}>{props.label}</Text>}
       <TextInput
         autoCapitalize={'none'}
+        onChangeText={text => {
+          props.onChangeText(text);
+          onChangeText(text);
+        }}
+        value={value}
+        secureTextEntry={props.secureTextEntry==Show}
         style={[
           styles.input,
-          focus ? props.InActivebackgroundColor : [props.ActivebackgroundColor,{paddingTop:vh(1)}],
+          props.TextColor,
+          focus
+            ? props.InActivebackgroundColor
+            : [props.ActivebackgroundColor, {paddingTop: vh(1)}],
         ]}
         onSubmitEditing={({nativeEvent}) => {
           setValue(nativeEvent.text);
-          props.submitediting();
+          props.submitediting(nativeEvent.text);
         }}
         editable={true}
         onFocus={onFocusHandler}
@@ -76,6 +82,7 @@ const InputField = (props: any, ref: any) => {
         placeholderTextColor={'#b2b2b2'}
         ref={ref}
       />
+      {props?.secureTextEntry&&<Text onPress={()=>{setShow(!Show)}} style={styles.secureLabel}>{!Show?"Show":"Hide"}</Text>}
     </View>
   );
 };
@@ -90,13 +97,13 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     width: vw(320),
     alignSelf: 'center',
-    marginVertical:vh(10)
+    marginVertical: vh(10),
   },
   input: {
     fontSize: 15,
     height: vh(40),
-    color: '#e5e5e5',
     marginTop: vh(5),
+    color:"#000000"
   },
   label: {
     color: '#b2b2b2',
@@ -107,4 +114,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     top: vh(2),
   },
+  secureLabel:{
+    position:"absolute",
+    right:20,
+    top:13
+
+  }
 });
