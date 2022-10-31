@@ -75,7 +75,6 @@ export default function Content(props: any) {
 
   return (
     <View style={styles.container}>
-        <StatusBar translucent={true} backgroundColor={"transparent"}/>
         <VideoBar screen={()=>{props.navigation.pop()}}/>
       <View style={styles.player}>
         {animate ? (

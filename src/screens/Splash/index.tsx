@@ -1,4 +1,4 @@
-import {StyleSheet, Image, Text, View, Animated} from 'react-native';
+import {StyleSheet, Image, Text, View, Animated,StatusBar} from 'react-native';
 import React, { useRef } from 'react';
 import FastImage from 'react-native-fast-image';
 import {vh, fullWidth, vw} from '../../utils/dimension';
@@ -24,6 +24,7 @@ const fade = useRef(new Animated.Value(0)).current;
 
   return (
     <View style={styles.container}>
+      <StatusBar hidden={true}/>
       <Animated.Image
         source={require('../../assets/netflix_start.jpeg')}
         style={[styles.logo,{transform:[{scale:fade}]}]}

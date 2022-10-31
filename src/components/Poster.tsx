@@ -10,7 +10,7 @@ export default function Poster(props:any) {
     <Pressable onPress={props.screen}>
     <View style={[styles.container,props.style]}>
     <Text style={styles.title}>{props.item[props.title]}</Text>
-    <FastImage source={{uri:`${url}${props.item.poster_path}`,headers: { Authorization: 'someAuthToken' },priority: FastImage.priority.normal}} style={[styles.poster,props.style]}/>
+    <FastImage resizeMode={"contain"} source={{uri:`${url}${props.item.poster_path}`,headers: { Authorization: 'someAuthToken' },priority: FastImage.priority.normal}} style={[styles.poster,props.style]}/>
     </View>
     </Pressable>
   )
@@ -18,8 +18,8 @@ export default function Poster(props:any) {
 
 const styles = StyleSheet.create({
     poster:{
-        height:vh(200),
-        width:vw(125),
+        height:vh(175),
+        width:vw(120),
         borderWidth:1,
         position:"absolute",
         borderRadius:vw(6)
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         width:vw(125),
         justifyContent:"center",
         alignItems:"center",
-        marginRight:10,
+        marginRight:vw(5),
+        borderRadius:vh(5)
     },
     title:{
       color:"white",

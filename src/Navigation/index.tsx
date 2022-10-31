@@ -1,7 +1,12 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View,StatusBar} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator,TransitionSpecs, HeaderStyleInterpolators, CardStyleInterpolators} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionSpecs,
+  HeaderStyleInterpolators,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import Details from '../screens/SignIn/Details';
 import Content from '../screens/Content';
 import TabNavigation from '../TabNavigation';
@@ -20,19 +25,19 @@ export default function Navgation(props: any) {
     animation: 'timing',
     config: {
       duration: 200,
-    }
-    
-  }
+    },
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="splash"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="Home" component={TabNavigation} />
-        <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="Content" component={Content} />
-        <Stack.Screen name="Details" component={Details} options={{
+        <Stack.Screen name="Home" component={TabNavigation}  options={{
+            transitionSpec: {open: OpenConfig, close: closeConfig},
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+          }}/>
+        <Stack.Screen name="Search" component={Search} options={{
           gestureDirection: 'vertical',
           transitionSpec: {
             open: OpenConfig,
@@ -40,8 +45,38 @@ export default function Navgation(props: any) {
           },
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}/>
-        <Stack.Screen name="Opening" component={Opening} options={{transitionSpec:{open:OpenConfig,close:closeConfig},cardStyleInterpolator:CardStyleInterpolators.forHorizontalIOS}}/>
-        <Stack.Screen name="SignUp" component={RegisterUser} options={{transitionSpec:{open:OpenConfig,close:closeConfig},cardStyleInterpolator:CardStyleInterpolators.forBottomSheetAndroid}}/>
+        <Stack.Screen name="Content" component={Content}           options={{
+            transitionSpec: {open: OpenConfig, close: closeConfig},
+            cardStyleInterpolator: CardStyleInterpolators.forBottomSheetAndroid,
+          }} />
+        <Stack.Screen
+          name="Details"
+          component={Details}
+          options={{
+            gestureDirection: 'vertical',
+            transitionSpec: {
+              open: OpenConfig,
+              close: closeConfig,
+            },
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen
+          name="Opening"
+          component={Opening}
+          options={{
+            transitionSpec: {open: OpenConfig, close: closeConfig},
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={RegisterUser}
+          options={{
+            transitionSpec: {open: OpenConfig, close: closeConfig},
+            cardStyleInterpolator: CardStyleInterpolators.forBottomSheetAndroid,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

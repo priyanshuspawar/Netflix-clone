@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         height:vh(50),
         justifyContent:"space-between",
         alignItems:"center",
-        marginTop:vh(25),
+        top:vh(40),
         position:"absolute",
         zIndex:1000,
         paddingHorizontal:vw(5)

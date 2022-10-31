@@ -8,7 +8,7 @@ import {
   StatusBar,
   Modal,
   Image,
-  Pressable
+  Pressable,Animated
 } from 'react-native';
 import React from 'react';
 import {
@@ -28,6 +28,7 @@ import {vw} from '../../components/dimension';
 import NavBar from '../../components/NavBar';
 import ModalView from '../../components/ModalView';
 import auth from '@react-native-firebase/auth';
+
 type ActionMovie = {
   title: string;
   poster_path: String;
@@ -36,6 +37,8 @@ type ActionMovie = {
 };
 
 export default function Home(props: any) {
+  const UpValue=React.useState(new Animated.Value(0))[0]
+  const Blur=React.useState(new Animated.Value(0))[0]
   const [animate, setAnimate] = React.useState(true);
   const [action_movies, setActionMovie] = React.useState<Array<ActionMovie>>(
     [],
@@ -47,6 +50,52 @@ export default function Home(props: any) {
   >([]);
   const dispatch = useDispatch<any>();
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [ColorValue,SetColorValue]=React.useState<any>(0)
+
+  const MoveGenreDown=()=>{
+    Animated.spring(UpValue,{
+      toValue:20,
+      useNativeDriver:true
+    
+    }).start()
+  }
+  const MoveGenreUp=()=>{
+    Animated.timing(UpValue,{
+      toValue:0,
+      duration:200,
+      useNativeDriver:true
+    }).start()
+  }
+
+  const OnScrollupBlur=()=>{
+    console.log("hello");
+    Animated.timing(Blur,{
+      toValue:0.2,
+      duration:500,
+      useNativeDriver:false
+    }).start()
+  }
+
+  const ScrollHandler=({nativeEvent}:any)=>{
+    if(nativeEvent.velocity.y>0){
+      
+      if(nativeEvent.contentOffset.y<vh(150)){
+        MoveGenreDown()
+      }
+      OnScrollupBlur()
+      console.log("Up swipe",nativeEvent.velocity,nativeEvent.contentOffset);
+      
+    }
+    else if(nativeEvent.velocity.y<0){
+      if(nativeEvent.contentOffset.y<vh(100)){
+      MoveGenreUp()}
+      console.log("down swipe");
+      
+    
+  }
+  }
+
+
 
   React.useEffect(() => {
 
@@ -66,13 +115,14 @@ export default function Home(props: any) {
   }, []);
   // console.log(trending[1]?.poster_path);
 
+  
 
   return (
-    <ScrollView style={{backgroundColor: 'black', flex: 1}} showsVerticalScrollIndicator={false}>
-      <StatusBar translucent={true} backgroundColor={'transparent'} />
-      <NavBar      
-      screen={()=>{props.navigation.navigate("Search")}}
-      />
+    <Animated.View style={{backgroundColor: '#000000', flex: 1}}>
+      <StatusBar translucent backgroundColor="transparent" />
+    <NavBar Blur={Blur} screen={()=>{props.navigation.navigate("Search")}}/>
+    <ScrollView scrollEventThrottle={1}  showsVerticalScrollIndicator={false} onScroll={(event)=>{ScrollHandler(event)}}>
+
       {animate && (
         <ActivityIndicator
           animating={true}
@@ -82,8 +132,8 @@ export default function Home(props: any) {
         />
       )}
       
-      <Show img={trending[1]?.poster_path} title={trending[1]?.title} screen={()=>{props.navigation.navigate("Content",trending[1])}}/>
-      <Genre genre1={'TV Shows'} genre2={'Movies'} modalOpen={()=>{setModalVisible(true)}}/>
+      <Show img={trending[2]?.poster_path} title={trending[1]?.title} screen={()=>{props.navigation.navigate("Content",trending[1])}}/>
+      <Genre genre1={'TV Shows'} move={{transform:[{translateY:UpValue}]}} genre2={'Movies'} modalOpen={()=>{setModalVisible(true)}}/>
       <Modal
         animationType="slide"
         transparent={true}
@@ -97,7 +147,7 @@ export default function Home(props: any) {
         <ModalView/>
         <Pressable style={styles.closeButtonContainer} onPress={()=>{setModalVisible(false)}}>
       
-        <Image source={require("../../assets/cross_black.png")} style={styles.closeButton} resizeMode={"contain"}/>
+        <Image source={require("../../assets/cross_black.png")} style={styles.closeButton} resizeMode={"center"}/>
     
         </Pressable>
       </View>
@@ -113,7 +163,7 @@ export default function Home(props: any) {
       <Contentview
         data={netflixOriginals}
         title={'Netflix Originals'}
-        style={{height: vh(325), width: vw(160)}}
+        style={{height: vh(225),marginRight:vw(10),width: vw(140)}}
         type={"Netflix"}
         screen={(e:any)=>{
           e.media_type="tv"
@@ -127,6 +177,7 @@ export default function Home(props: any) {
       />
       </View>
     </ScrollView>
+    </Animated.View>
   );
 }
 
@@ -136,20 +187,19 @@ const styles = StyleSheet.create({
   },
   loader: {
     alignSelf: 'center',
-    borderColor: 'white',
     flex: 1,
   },
   closeButton:{
-    height:vh(15),
-    width:vw(16),
+    height:vh(10),
+    width:vw(10),
 
 },
 closeButtonContainer:{
   backgroundColor:"white",
-  borderRadius:vh(20),
-  width:vw(28),
+  borderRadius:vh(30),
+  width:vw(42),
   justifyContent:"center",
-  height:vh(30),
+  height:vh(42),
   position:"absolute",
   alignItems:"center",
   top:vh(700),

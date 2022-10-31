@@ -74,12 +74,10 @@ export default function Details(props: any) {
     }
   };
   // console.log(user);
-  console.log("checl");
-  
+
   return (
     <View
     style={{flex: 1, backgroundColor: '#000000'}}>
-      <StatusBar translucent={true} backgroundColor={'transparent'} />
       <NavrBarSignIn change={()=>{props.navigation.replace("Opening")}}/>
       <KeyboardAvoidingView>
         {/* <TextInput

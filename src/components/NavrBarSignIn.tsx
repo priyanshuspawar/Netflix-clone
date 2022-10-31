@@ -4,7 +4,7 @@ import { fullWidth, vh, vw } from '../utils/dimension'
 const NavrBarSignIn = (props:any) => {
   return (
     <View style={styles.container}>
-      <Pressable onPress={props.change}>
+      <Pressable onPress={props.change} style={{height:vh(25)}}>
       <Image source={require("../assets/angle-left.png")} style={styles.Backbutton}/>
       </Pressable>
       <Image  source={require("../assets/Netflixlogo.png")} style={styles.logo}/>
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         height:vh(80),
         color:"#000000",
         position:"absolute",
-        top:0,
+        zIndex:1,
+        top:15,
         backgroundColor:"#000000",
         width:fullWidth,
         paddingHorizontal:vw(10),

@@ -17,19 +17,18 @@ export default function Contentview(props: any) {
   return (
     <View style={[styles.container,props.styleContainer]}>
       <Text style={styles.text}>{props.title}</Text>
-      <FlatList data={props.data} renderItem={renderItem} horizontal={true} showsVerticalScrollIndicator={false} pagingEnabled/>
+      <FlatList data={props.data} renderItem={renderItem} horizontal={true} showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior={"always"} pagingEnabled/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container:{
-    marginVertical:10
   },
   text:{
     color:"white",
-    fontSize:20,
-    marginBottom:8,
+    fontSize:15,
+    marginBottom:vh(0),
     fontFamily:"Montserrat-SemiBold"
   }
 });

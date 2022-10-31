@@ -35,7 +35,7 @@ export default function Show(props: any) {
             style={styles.playimg}
             resizeMode={'contain'}
           />
-          <Text style={{color: 'black', fontWeight: '600'}}>Play</Text>
+          <Text style={{color: '#000000',fontFamily:"Montserrat-SemiBold"}}>Play</Text>
         </View>
         </Pressable>
         <View style={styles.info}>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: vw(70),
+    width: vw(85),
     height: vh(30),
     borderRadius: 3,
   },

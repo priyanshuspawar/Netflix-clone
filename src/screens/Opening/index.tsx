@@ -24,13 +24,15 @@ export default function Opening(props:any) {
 
   return (
     <View style={{flex:1,alignItems:"center"}}>
-    <StatusBar backgroundColor={"transparent"} translucent={true}/>
+    <View>
+      <StatusBar translucent={true} backgroundColor={"transparent"}/>
+    </View>
     <NavBar screen={()=>{props.navigation.navigate("Details")}} change={()=>{}} styletext1={{color:"#FFFFFF"}} styletext2={{color:"#FFFFFF"}}/>
     <ScrollView horizontal={true} pagingEnabled={true} showsHorizontalScrollIndicator={false} onScroll={(event)=>{onScroll(event)}}>
       {BgImage.map((e,i)=>{
         return(
-          <View style={styles.bgimage} key={e.key}>
-            <Image source={e.img} style={styles.bgimage} resizeMethod={"resize"}/>    
+          <View style={[styles.bgimage]} key={e.key}>
+            <Image source={e.img} style={[styles.bgimage,{height:fullheight}]} resizeMethod={"resize"}/>    
             <LinearGradient colors={["#000000","#00000020","#00000099"]} style={[styles.grad,e.blur?{position:"absolute"}:{position:"relative"}]}>      
             </LinearGradient>
             <Text style={styles.imgtitle}>{e.title}</Text>
@@ -56,7 +58,6 @@ export default function Opening(props:any) {
 const styles = StyleSheet.create({
   bgimage:{
     width:fullWidth,
-    height:fullheight,
     backgroundColor:"black",
     alignItems:"center"
   },
