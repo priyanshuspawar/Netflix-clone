@@ -20,6 +20,7 @@ import { Similar } from '../../Redux/action';
 import ViewSimilarGrid from '../../components/ViewSimilarGrid';
 import Slider from '@react-native-community/slider';
 import VideoBar from '../../components/VideoBar';
+import LikeShareBar from '../../components/LikeShareBar';
 
 export default function Content(props: any) {
   type trailerData = {key: string; type: string};
@@ -112,6 +113,7 @@ export default function Content(props: any) {
       <PlayButton play={()=>{setPlay(true)}}/>
       <DownloadButton/>
       <Text style={styles.dis}>{overview}</Text>
+      <LikeShareBar/>
       <Text style={styles.similartext}>MORE LIKE THIS</Text>
       <ViewSimilarGrid data={SimilarData} screen={(e:any)=>{
           props.navigation.replace("Content",e )
@@ -126,7 +128,6 @@ const styles = StyleSheet.create({
     width: fullWidth,
     height: vh(240),
     alignContent:"center",
-    padding:vw(8),
     marginTop:vh(5)
   },
   container: {

@@ -38,7 +38,7 @@ type ActionMovie = {
 
 export default function Home(props: any) {
   const UpValue=React.useState(new Animated.Value(0))[0]
-  const Blur=React.useState(new Animated.Value(0))[0]
+  const Blur=React.useRef(new Animated.Value(0)).current;
   const [animate, setAnimate] = React.useState(true);
   const [action_movies, setActionMovie] = React.useState<Array<ActionMovie>>(
     [],
@@ -50,7 +50,6 @@ export default function Home(props: any) {
   >([]);
   const dispatch = useDispatch<any>();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [ColorValue,SetColorValue]=React.useState<any>(0)
 
   const MoveGenreDown=()=>{
     Animated.spring(UpValue,{
@@ -67,14 +66,6 @@ export default function Home(props: any) {
     }).start()
   }
 
-  const OnScrollupBlur=()=>{
-    console.log("hello");
-    Animated.timing(Blur,{
-      toValue:0.2,
-      duration:500,
-      useNativeDriver:false
-    }).start()
-  }
 
   const ScrollHandler=({nativeEvent}:any)=>{
     if(nativeEvent.velocity.y>0){
@@ -82,14 +73,16 @@ export default function Home(props: any) {
       if(nativeEvent.contentOffset.y<vh(150)){
         MoveGenreDown()
       }
-      OnScrollupBlur()
-      console.log("Up swipe",nativeEvent.velocity,nativeEvent.contentOffset);
+      Blur.setValue(nativeEvent.contentOffset.y)
+
+      // console.log("Up swipe",nativeEvent.velocity,nativeEvent.contentOffset);
       
     }
     else if(nativeEvent.velocity.y<0){
       if(nativeEvent.contentOffset.y<vh(100)){
       MoveGenreUp()}
-      console.log("down swipe");
+      Blur.setValue(nativeEvent.contentOffset.y)
+      // console.log("down swipe");
       
     
   }
@@ -121,7 +114,7 @@ export default function Home(props: any) {
     <Animated.View style={{backgroundColor: '#000000', flex: 1}}>
       <StatusBar translucent backgroundColor="transparent" />
     <NavBar Blur={Blur} screen={()=>{props.navigation.navigate("Search")}}/>
-    <ScrollView scrollEventThrottle={1}  showsVerticalScrollIndicator={false} onScroll={(event)=>{ScrollHandler(event)}}>
+    <ScrollView bounces={false} scrollEventThrottle={1}  showsVerticalScrollIndicator={false} onScroll={(event)=>{ScrollHandler(event)}}>
 
       {animate && (
         <ActivityIndicator

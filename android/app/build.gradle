@@ -133,6 +133,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+
+
+
     defaultConfig {
         applicationId "com.netflixclone"
         minSdkVersion rootProject.ext.minSdkVersion
