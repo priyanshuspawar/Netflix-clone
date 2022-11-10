@@ -21,22 +21,24 @@ import ViewSimilarGrid from '../../components/ViewSimilarGrid';
 import Slider from '@react-native-community/slider';
 import VideoBar from '../../components/VideoBar';
 import LikeShareBar from '../../components/LikeShareBar';
+import firestore from '@react-native-firebase/firestore';
 
 export default function Content(props: any) {
   type trailerData = {key: string; type: string};
   const playerRef=React.useRef<YoutubeIframeRef>(null);
   const dispatch = useDispatch<any>();
-  const {title,adult,overview, id,name,release_date,first_air_date,media_type} = props.route.params;
+  const {title,adult,overview, id,name,release_date,first_air_date,media_type,uid,backdrop_path} = props.route.params;
   const [trailerData, setTrailer] = React.useState<Array<trailerData>>([]);
   const [key, setKey] = React.useState('');
   const [animate, setAnimate] = React.useState(true);
   const [SimilarData,setSimilarData]=React.useState();
   const [play,setPlay]=React.useState(false);
+  const docid = media_type == 'tv' || first_air_date !=undefined ? name : title ;
   const plaList=[]
+  
 
   React.useEffect(() => {
     // getGenreMovie("movie",(res)=>{setGenreMovie(res.data.genres)})
-    
     getTrailerCall(
       id,
       media_type == 'tv' || first_air_date !=undefined ?"tv":"movie",
@@ -70,9 +72,23 @@ export default function Content(props: any) {
   },[trailerData])
 
 
-  
-  // console.log("@@@",props.route.params);
+  const AddToListFireStore =  ()=>{
+    firestore()
+    .collection("Users")
+    .doc(uid)
+    .collection("my_list")
+    .doc(docid)
+    .set({...props.route.params})
+    .then(()=>{console.log("added to mylist",props.route.params)})
+    .catch(()=>{console.log("not")})
 
+  }
+
+
+  
+  console.log("@@@",props.route.params);
+
+console.log(name,typeof(name));
 
   return (
     <View style={styles.container}>
@@ -101,10 +117,10 @@ export default function Content(props: any) {
             // webViewProps={{containerStyle:{height:vh(300)}}}
           />
         )}
-        
+      
       </View>
       {/* <Slider maximumValue={duration} thumbTintColor={"red"} value={currentTime} minimumValue={0} style={styles.slider} maximumTrackTintColor={"black"} minimumTrackTintColor={"red"}/> */}
-      <ScrollView style={styles.scrollContainer} nestedScrollEnabled={true}>
+      <ScrollView style={styles.scrollContainer} overScrollMode={"never"}>
       <Text style={styles.title}>{media_type == 'tv' || first_air_date !=undefined ? name : title}</Text>
       <View style={{flexDirection:"row"}}>
       <Text style={styles.year}>{media_type == 'tv' || first_air_date !=undefined ? first_air_date?.slice(0,4) : release_date?.slice(0,4)}</Text>
@@ -113,7 +129,7 @@ export default function Content(props: any) {
       <PlayButton play={()=>{setPlay(true)}}/>
       <DownloadButton/>
       <Text style={styles.dis}>{overview}</Text>
-      <LikeShareBar/>
+      <LikeShareBar addtolist={()=>{AddToListFireStore()}} uid={uid} docid={docid}/>
       <Text style={styles.similartext}>MORE LIKE THIS</Text>
       <ViewSimilarGrid data={SimilarData} screen={(e:any)=>{
           props.navigation.replace("Content",e )

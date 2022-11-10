@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View,StatusBar} from 'react-native';
+import {StyleSheet, Text, View, StatusBar} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -14,49 +14,71 @@ import Splash from '../screens/Splash';
 import Search from '../screens/Search/Search';
 import Opening from '../screens/Opening';
 import RegisterUser from '../screens/RegisterUser';
+import MovieCategoryScreen from '../screens/MovieCategoryScreen';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 
-const Stack = createStackNavigator();
+const Stack = createSharedElementStackNavigator();
 export default function Navgation(props: any) {
-  const OpenConfig = {
-    animation: 'timing',
-    config: {duration: 300},
-  };
-  const closeConfig = {
-    animation: 'timing',
-    config: {
-      duration: 200,
-    },
-  };
   return (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="splash"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="Home" component={TabNavigation}  options={{
-            transitionSpec: {open: OpenConfig, close: closeConfig},
+        <Stack.Screen
+          name="Home"
+          component={TabNavigation}
+          options={{
+            transitionSpec: {
+              open: {animation: 'timing', config: {duration: 500}},
+              close: {animation: 'timing', config: {duration: 500}},
+            },
             cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
-          }}/>
-        <Stack.Screen name="Search" component={Search} options={{
-          gestureDirection: 'vertical',
-          transitionSpec: {
-            open: OpenConfig,
-            close: closeConfig,
-          },
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}/>
-        <Stack.Screen name="Content" component={Content}           options={{
-            transitionSpec: {open: OpenConfig, close: closeConfig},
+          }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={Search}
+          options={{
+            gestureDirection: 'vertical',
+            transitionSpec: {
+              open: {animation: 'timing', config: {duration: 500}},
+              close: {animation: 'timing', config: {duration: 500}},
+            },
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen
+          name="Content"
+          component={Content}
+          options={{
+            transitionSpec: {
+              open: {animation: 'timing',config: {duration: 500}},
+              close: {animation: 'timing', config: {duration: 500}},
+            },
             cardStyleInterpolator: CardStyleInterpolators.forBottomSheetAndroid,
-          }} />
+          }}
+        />
         <Stack.Screen
           name="Details"
           component={Details}
           options={{
+            gestureEnabled:false,
+            transitionSpec: {
+              open: {animation: 'timing', config: {duration: 500}},
+              close: {animation: 'timing', config: {duration: 500}},
+            },
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen
+          name="Movies"
+          component={MovieCategoryScreen}
+          options={{
             gestureDirection: 'vertical',
             transitionSpec: {
-              open: OpenConfig,
-              close: closeConfig,
+              open: {animation: 'timing', config: {duration: 500}},
+              close: {animation: 'timing', config: {duration: 500}},
             },
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}
@@ -65,7 +87,10 @@ export default function Navgation(props: any) {
           name="Opening"
           component={Opening}
           options={{
-            transitionSpec: {open: OpenConfig, close: closeConfig},
+            transitionSpec: {
+              open: {animation: 'timing', config: {duration: 500}},
+              close: {animation: 'timing', config: {duration: 500}},
+            },
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}
         />
@@ -73,7 +98,10 @@ export default function Navgation(props: any) {
           name="SignUp"
           component={RegisterUser}
           options={{
-            transitionSpec: {open: OpenConfig, close: closeConfig},
+            transitionSpec: {
+              open: {animation: 'timing', config: {duration: 500}},
+              close: {animation: 'timing', config: {duration: 500}},
+            },
             cardStyleInterpolator: CardStyleInterpolators.forBottomSheetAndroid,
           }}
         />

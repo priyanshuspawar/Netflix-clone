@@ -20,6 +20,7 @@ import NextButton from '../../components/NextButton';
 import auth from '@react-native-firebase/auth';
 import PlanBanner from '../../components/PlanBanner';
 import {Provider ,Dialog, Portal, Button, Paragraph } from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
 
 const RegisterUser = (props: any) => {
   const initialState = [
@@ -59,10 +60,11 @@ const RegisterUser = (props: any) => {
 
   const [Scrollref, SetScrollref] = React.useState<any>(null);
 
-  const SignUp = () => {
-    auth()
+  const SignUp = async () => {
+       auth()
       .createUserWithEmailAndPassword(Email, Password)
       .then(() => {
+        AddDataFireStore();
         console.log('working');
         setsignUpDone(true);
         Scrollref.scrollTo({x: contentOffset.width, y: 0, animation: true});
@@ -105,6 +107,23 @@ const RegisterUser = (props: any) => {
 
   // console.log(Email,CheckValidEmail,CheckValidpass);
   // console.log(!(CheckValidEmail&&CheckValidpass));
+
+
+  const AddDataFireStore= async ()=>{
+    firestore()
+    .collection('Users')
+    .doc(auth().currentUser?.uid)
+    .collection("User_Details")
+    .doc("Info")
+    .set({
+    email:Email,
+    Password:Password,
+    uid:auth().currentUser?.uid
+    })
+    .then(() => {
+    console.log('User added!');
+  }).catch((error)=>{console.log(error)})
+}
 
   React.useEffect(() => {
     if (scroll == 4) {
@@ -236,6 +255,7 @@ const RegisterUser = (props: any) => {
                       placeholderTextColor={"#000000"}
                       LabelColor={"#000000"}
                       textColor={{color: '#000000'}}
+                      marginTop={vh(5)}
                       InActivebackgroundColor={'white'}
                       fieldStyle={{borderColor: '#00000075', borderWidth: 1}}
                       ActivebackgroundColor={'white'}

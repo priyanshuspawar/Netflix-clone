@@ -14,7 +14,7 @@ export default function Show(props: any) {
         style={styles.poster}
         resizeMode={FastImage.resizeMode.stretch}
       />
-      <LinearGradient colors={["#000000","#00000000","#000000"]} style={styles.grad}>
+      <LinearGradient colors={["#000000","#00000010","#00000098"]} style={styles.grad}>
       </LinearGradient>
       {/* <Text style={{color:"white",alignSelf:"center"}}>{props.title}</Text> */}
       <View style={styles.buttons}>
@@ -56,13 +56,13 @@ export default function Show(props: any) {
 const styles = StyleSheet.create({
   poster: {
     width: fullWidth,
-    height: vh(525),
+    height: vh(590),
   },
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     position: 'absolute',
-    bottom: vh(5),
+    bottom: vh(50),
     width: fullWidth,
     backgroundColor: 'transparent',
     elevation: 50,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   grad:{
   position:"absolute",
-  height:vh(550),
+  height:vh(600),
   width:fullWidth
 }
 });

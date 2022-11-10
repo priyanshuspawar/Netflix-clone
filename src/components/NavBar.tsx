@@ -8,7 +8,7 @@ import { fullWidth, vh,vw} from '../utils/dimension'
 export default function NavBar(props :any) {
   return (
     <View style={styles.grad} >
-    <Animated.View style={[{backgroundColor:"#000000",opacity:props.Blur.interpolate({inputRange:[20,50,70,100,600],outputRange:[0.1,0.2,0.3,0.4,0.9],useNativeDriver: true}),flex:1}]}></Animated.View>
+    <Animated.View style={[{backgroundColor:"#000000",opacity:props?.Blur.interpolate({inputRange:[20,50,70,100,600],outputRange:[0.1,0.2,0.3,0.4,0.9],useNativeDriver:true}),flex:1}]}></Animated.View>
     <View style={styles.container}>
       <Image source={require("../assets/netflix_logo_bar.png")} style={styles.logo} resizeMode={"center"}/>
       <Pressable onPress={props.screen}>

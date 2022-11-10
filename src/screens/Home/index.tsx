@@ -28,6 +28,8 @@ import {vw} from '../../components/dimension';
 import NavBar from '../../components/NavBar';
 import ModalView from '../../components/ModalView';
 import auth from '@react-native-firebase/auth';
+import firestore from "@react-native-firebase/firestore"
+import { SharedElement } from 'react-navigation-shared-element';
 
 type ActionMovie = {
   title: string;
@@ -50,6 +52,7 @@ export default function Home(props: any) {
   >([]);
   const dispatch = useDispatch<any>();
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [uid,setUid]=React.useState({})
 
   const MoveGenreDown=()=>{
     Animated.spring(UpValue,{
@@ -89,8 +92,13 @@ export default function Home(props: any) {
   }
 
 
+  const GetUserInfoFireBase=async ()=>{
+    auth().onAuthStateChanged((data)=>{setUid({uid:data?.uid})})
+  }
 
   React.useEffect(() => {
+    
+    GetUserInfoFireBase();
 
     dispatch(MovieAction((response: []) => {
       setActionMovie(response);}))
@@ -113,7 +121,9 @@ export default function Home(props: any) {
   return (
     <Animated.View style={{backgroundColor: '#000000', flex: 1}}>
       <StatusBar translucent backgroundColor="transparent" />
+    <SharedElement style={{position:"absolute",zIndex:1000}} id='searchBar'>
     <NavBar Blur={Blur} screen={()=>{props.navigation.navigate("Search")}}/>
+    </SharedElement>
     <ScrollView bounces={false} scrollEventThrottle={1}  showsVerticalScrollIndicator={false} onScroll={(event)=>{ScrollHandler(event)}}>
 
       {animate && (
@@ -125,8 +135,10 @@ export default function Home(props: any) {
         />
       )}
       
-      <Show img={trending[2]?.poster_path} title={trending[1]?.title} screen={()=>{props.navigation.navigate("Content",trending[1])}}/>
-      <Genre genre1={'TV Shows'} move={{transform:[{translateY:UpValue}]}} genre2={'Movies'} modalOpen={()=>{setModalVisible(true)}}/>
+      <Show img={trending[2]?.poster_path} title={trending[2]?.title} screen={()=>{props.navigation.navigate("Content",trending[2])}}/>
+      <SharedElement id='category' style={{position:"absolute",zIndex:500}}>
+      <Genre genre1={'TV Shows'} change2={()=>{props.navigation.navigate("Movies")}} move={{transform:[{translateY:UpValue}],justifyContent:"space-around"}} genre2={'Movies'} modalOpen={()=>{setModalVisible(true)}}/>
+      </SharedElement>
       <Modal
         animationType="slide"
         transparent={true}
@@ -149,24 +161,23 @@ export default function Home(props: any) {
       <Contentview
         data={trending}
         title={'Trending'}
-        screen={(e:any)=>{props.navigation.navigate("Content",e)}}
+        screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
         styleContainer={{marginTop:20}}
       />
-      <Contentview data={topRated} title={'Top Rated'} screen={(e:any)=>{props.navigation.navigate("Content",e)}}/>
+      <Contentview data={topRated} title={'Top Rated'} screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}/>
       <Contentview
         data={netflixOriginals}
         title={'Netflix Originals'}
         style={{height: vh(225),marginRight:vw(10),width: vw(140)}}
         type={"Netflix"}
         screen={(e:any)=>{
-          e.media_type="tv"
-          props.navigation.navigate("Content",e)
+          props.navigation.navigate("Content",{...e,media_type:"tv",...uid})
         }}
       />
       <Contentview
         data={action_movies}
         title={'Action Movies'}
-        screen={(e:any)=>{props.navigation.navigate("Content",e)}}
+        screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
       />
       </View>
     </ScrollView>
@@ -189,8 +200,9 @@ const styles = StyleSheet.create({
 },
 closeButtonContainer:{
   backgroundColor:"white",
-  borderRadius:vh(30),
-  width:vw(42),
+  width:vw(40),
+  borderRadius:100/2,
+  elevation:1,
   justifyContent:"center",
   height:vh(42),
   position:"absolute",

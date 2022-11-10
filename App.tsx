@@ -14,6 +14,7 @@ export default function App() {
   React.useEffect(()=>
   {LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
   LogBox.ignoreAllLogs();//Ignore all log notifications
+  LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   
   },[])
 

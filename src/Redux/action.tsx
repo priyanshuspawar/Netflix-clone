@@ -69,6 +69,67 @@ export const Similar=(id:string,media_type:string,successData=(response:[])=>{})
 }
 
 
+export const Netflix_Movies=(successData=(response:[])=>{})=>{
+  return(dispatch:any)=>{
+    getApiCall(endpoints.fetchMovieOnlyNetflix,(res)=>{
+      dispatch({type:"Netflix_Movies",payload:res.data.results})
+      successData(res.data.results);
+    },()=>{});
+      
+  }
+}
+
+
+export const SciFiMovies=(successData=(response:[])=>{})=>{
+  return(dispatch:any)=>{
+    getApiCall(endpoints.fetchSciFiMovies,(res)=>{
+      dispatch({type:"SciFiMovies",payload:res.data.results})
+      successData(res.data.results);
+    },()=>{});
+      
+  }
+}
+
+
+
+export const HorrorMovies=(successData=(response:[])=>{})=>{
+  return(dispatch:any)=>{
+    getApiCall(endpoints.fetchHorrorMovies,(res)=>{
+      dispatch({type:"HorrorMovies",payload:res.data.results})
+      successData(res.data.results);
+    },()=>{});
+      
+  }
+}
+
+
+export const ThrillerMov=(successData=(response:[])=>{})=>{
+  return(dispatch:any)=>{
+    getApiCall(endpoints.fetchThrilerMovies,(res)=>{
+      dispatch({type:"ThrillerMov",payload:res.data.results})
+      successData(res.data.results);
+    },()=>{});
+      
+  }
+}
+
+export const RomanceMov=(successData=(response:[])=>{})=>{
+  return(dispatch:any)=>{
+    getApiCall(endpoints.fetchRomanceMovies,(res)=>{
+      dispatch({type:"RomanceMov",payload:res.data.results})
+      successData(res.data.results);
+    },()=>{});
+      
+  }
+}
+
+
+
+
+
+
+
+
   
 
 
