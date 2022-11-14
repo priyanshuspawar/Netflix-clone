@@ -33,6 +33,7 @@ export default function Content(props: any) {
   const [animate, setAnimate] = React.useState(true);
   const [SimilarData,setSimilarData]=React.useState();
   const [play,setPlay]=React.useState(false);
+  const [Ready,setReady]=React.useState(false)
   const docid = media_type == 'tv' || first_air_date !=undefined ? name : title ;
   const plaList=[]
   

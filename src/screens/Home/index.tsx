@@ -137,7 +137,7 @@ export default function Home(props: any) {
       
       <Show img={trending[2]?.poster_path} title={trending[2]?.title} screen={()=>{props.navigation.navigate("Content",trending[2])}}/>
       <SharedElement id='category' style={{position:"absolute",zIndex:500}}>
-      <Genre genre1={'TV Shows'} change2={()=>{props.navigation.navigate("Movies")}} move={{transform:[{translateY:UpValue}],justifyContent:"space-around"}} genre2={'Movies'} modalOpen={()=>{setModalVisible(true)}}/>
+      <Genre genre1={'TV Shows'} change2={()=>{props.navigation.navigate("Movies",{uid:uid})}} move={{transform:[{translateY:UpValue}],justifyContent:"space-around"}} genre2={'Movies'} modalOpen={()=>{setModalVisible(true)}}/>
       </SharedElement>
       <Modal
         animationType="slide"

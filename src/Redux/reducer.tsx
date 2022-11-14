@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { ComedyMovies } from "./action";
 
 type Logintypestate={
     email:string;
@@ -67,6 +68,8 @@ export const MovieDataReducer=(state=initialStateTMDBdata,action: { type: string
             return{...state,RomanceMov:action.payload}
         case "ThrillerMov":
             return{...state,ThrillerMov:action.payload}
+        case "ComedyMovies":
+            return{...state,ComedyMovies:action.payload}
         default:
             return state;
     }

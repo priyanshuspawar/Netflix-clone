@@ -7,6 +7,7 @@ import Discover from '../screens/Discover';
 import {vh, vw} from '../utils/dimension';
 import Account from '../screens/Account';
 import Content from '../screens/Content';
+import MovieCategoryScreen from '../screens/MovieCategoryScreen';
 
 
 export default function TabNavigation() {

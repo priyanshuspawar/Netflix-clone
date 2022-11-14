@@ -123,9 +123,15 @@ export const RomanceMov=(successData=(response:[])=>{})=>{
   }
 }
 
-
-
-
+export const ComedyMovies=(successData=(response:[])=>{})=>{
+  return(dispatch:any)=>{
+    getApiCall(endpoints.fetchComedyMovies,(res)=>{
+      dispatch({type:"ComedyMovies",payload:res.data.results})
+      successData(res.data.results);
+    },()=>{});
+      
+  }
+}
 
 
 

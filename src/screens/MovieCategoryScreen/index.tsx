@@ -4,7 +4,7 @@ import { SharedElement } from 'react-navigation-shared-element'
 import NavBar from '../../components/NavBar';
 import Genre from '../../components/Genre';
 import { useDispatch } from 'react-redux';
-import { Netflix_Movies, SciFiMovies, HorrorMovies, RomanceMov, ThrillerMov } from '../../Redux/action';
+import { Netflix_Movies, SciFiMovies, HorrorMovies, RomanceMov, ThrillerMov, ComedyMovies } from '../../Redux/action';
 import { vh, vw } from '../../utils/dimension';
 import Show from '../../components/Show';
 import Contentview from '../../components/Contentview';
@@ -15,7 +15,7 @@ const MovieCategoryScreen = (props:any) => {
         backdrop_path: String;
         first_air_date: String;
       };
-
+    const {uid}=props.route.params;
 
     const UpValue=React.useState(new Animated.Value(0))[0]
     const Blur=React.useRef(new Animated.Value(0)).current;
@@ -26,6 +26,8 @@ const MovieCategoryScreen = (props:any) => {
     const [SciFiMoviesData,setSciFiMoviesData]=React.useState<Array<ActionMovie>>([])
     const [HorrorMoviesData,setHorrorMoviesData]=React.useState<Array<ActionMovie>>([])
     const [ThrillerMovieData,setThrillerMovieData]=React.useState<Array<ActionMovie>>([])
+    const [RomanceMovieData,setRomanceMovieData]=React.useState<Array<ActionMovie>>([])
+    const [ComedyMovieData,setComedyMovieData]=React.useState<Array<ActionMovie>>([])
 
     Animated.timing(moveCategory,{
         toValue:vw(-110),
@@ -43,6 +45,15 @@ const MovieCategoryScreen = (props:any) => {
             }))
         dispatch(ThrillerMov((response:[])=>{
             setThrillerMovieData(response)
+        }))
+        dispatch(HorrorMovies((response:[])=>{
+            setHorrorMoviesData(response)
+        }))
+        dispatch(RomanceMov((response:[])=>{
+            setRomanceMovieData(response)
+        }))
+        dispatch(ComedyMovies((response:[])=>{
+            setComedyMovieData(response)
         }))
         return(()=>{})
         
@@ -62,14 +73,33 @@ const MovieCategoryScreen = (props:any) => {
        <Contentview
        data={MoviesNetflx}
        title={"Only on Netlfix"}
+       styleContainer={{marginTop:vh(16)}}
+       screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
        />
        <Contentview
        data={SciFiMoviesData}
        title={"Sci-Fi"}
+       screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
        />
        <Contentview
        data={ThrillerMovieData}
        title={"Thriller"}
+       screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
+       />
+       <Contentview
+       data={HorrorMoviesData}
+       title={"Horror"}
+       screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
+       />
+       <Contentview
+       data={RomanceMovieData}
+       title={"Romance"}
+       screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
+       />
+       <Contentview
+       data={ComedyMovieData}
+       title={"Comedy"}
+       screen={(e:any)=>{props.navigation.navigate("Content",{...e,...uid})}}
        />
        </>
        }
